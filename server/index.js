@@ -22,7 +22,13 @@ db.connect((err) => {
 
 // routes
 app.use('/data', function (req, res) {
-    db.query('SELECT * FROM census_learn_sql LIMIT 10', function (error, results, fields) {
+    const sqlQuery = 'SELECT education, COUNT(education), AVG(age) '
+        + 'FROM census_learn_sql '
+        + 'GROUP BY education '
+        + 'ORDER BY AVG(age) DESC '
+        + 'LIMIT 100';
+
+    db.query(sqlQuery, function (error, results, fields) {
         if (error) throw error;
         res.send(results);
     });
