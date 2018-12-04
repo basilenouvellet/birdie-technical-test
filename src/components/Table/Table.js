@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 
-import { TableActions } from './TableActions';
+import { TableActions } from './index';
 
 import type { AppStateType } from '../../rootReducer';      // TODO: Is it the RIGHT PATH?
 
@@ -21,17 +21,26 @@ class Table extends React.Component<PropsType, StateType> {
 
     // ------------------------------------------- Render -------------------------------------------
     render() {
+        const { variable, changeVariable } = this.props;
+
         return (
             <div className="table">
-                This is Table
+                <button onClick={() => { changeVariable(Math.random()*100); }}>
+                    Change variable
+                </button>
+                {variable}
             </div>
         );
     }
 }
 
-const mapStateToProps = (state: AppStateType): MappedStatePropsType => ({});
+const mapStateToProps = (state: AppStateType): MappedStatePropsType => ({
+    variable: state.variable,
+});
 
-const mapDispatchToProps = (dispatch: *): MappedDispatchPropsType => ({});
+const mapDispatchToProps = (dispatch: *): MappedDispatchPropsType => ({
+    changeVariable: (variable) => { dispatch(TableActions.changeVariableAction(variable)) },
+});
 
 export default connect(
     mapStateToProps,
