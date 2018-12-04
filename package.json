@@ -4,6 +4,7 @@
   "private": false,
   "dependencies": {
     "express": "^4.16.4",
+    "mysql": "^2.16.0",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
     "react-redux": "^5.1.1",
@@ -25,5 +26,6 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "proxy": "http://localhost:8080"
 }

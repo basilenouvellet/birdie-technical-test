@@ -6,16 +6,16 @@ import { TABLE_ACTIONS_TYPES }  from './TableActions';
 import { TableActions } from './index';
 
 function fetchApi() {
-    return fetch('/');
+    return fetch('/data').then(res => res.json());
 }
 
 function* fetchTest(action) {
     try {
-        const res = yield call(fetchApi);
+        const data = yield call(fetchApi);
 
-        console.log(res);
+        console.log(action.type, data);
 
-        yield put(TableActions.changeVariableAction(res));
+        yield put(TableActions.changeVariableAction(data[0].maxAge));
     } catch (e) {
         // yield put(TableActions.errorOnFetch);
     }
