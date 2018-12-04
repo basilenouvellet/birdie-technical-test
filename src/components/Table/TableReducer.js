@@ -3,6 +3,7 @@
 import { TABLE_ACTIONS_TYPES } from './TableActions';
 
 const TableReducer = (state = {
+    columns: [],
     variable: null,
     data: [],
 }, action) => {
@@ -20,6 +21,13 @@ const TableReducer = (state = {
             return {
                 ...state,
                 data,
+            };
+            case TABLE_ACTIONS_TYPES.columnsFetched:
+            const { columns } = action.payload;
+
+            return {
+                ...state,
+                columns,
             };
         default:
             return state;

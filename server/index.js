@@ -14,6 +14,8 @@ const db = mysql.createConnection({
     database: 'birdietest',
 });
 
+const table = 'census_learn_sql';
+
 // connect to database
 db.connect((err) => {
     if (err) throw err;
@@ -25,15 +27,22 @@ app.use('/data', function (req, res) {
     const { variable } = req.query;
 
     const sqlQuery = `SELECT ${variable}, COUNT(${variable}) AS count, AVG(age) AS average_age `
-        + 'FROM census_learn_sql '
+        + `FROM ${table} `
         + `GROUP BY ${variable} `
         + 'ORDER BY average_age DESC '
         + 'LIMIT 100';
 
-    db.query(sqlQuery, function (error, results, fields) {
+    db.query(sqlQuery, function (error, results) {
         if (error) throw error;
-        console.log('FIELDS', fields);
-        
+        res.send(results);
+    });
+});
+
+app.use('/columns', function (req, res) {
+    const sqlQuery = `SHOW columns from ${table}`;
+
+    db.query(sqlQuery, function (error, results) {
+        if (error) throw error;
         res.send(results);
     });
 });

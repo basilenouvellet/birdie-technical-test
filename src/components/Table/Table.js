@@ -64,6 +64,7 @@ class Table extends React.Component<PropsType, StateType> {
     render() {
         return (
             <div className="table">
+                <button onClick={() => this.props.fetchColumns()}>Columns</button>
                 {this.renderButton()}
                 {this.renderRows()}
             </div>
@@ -72,6 +73,7 @@ class Table extends React.Component<PropsType, StateType> {
 }
 
 const mapStateToProps = (state: AppStateType): MappedStatePropsType => ({
+    columns: state.columns,
     variable: state.variable,
     data: state.data,
 });
@@ -79,6 +81,9 @@ const mapStateToProps = (state: AppStateType): MappedStatePropsType => ({
 const mapDispatchToProps = (dispatch: *): MappedDispatchPropsType => ({
     fetchData: (variable) => {
         dispatch(TableActions.fetchDataAction(variable));
+    },
+    fetchColumns: () => {
+        dispatch(TableActions.fetchColumnsAction());
     },
 });
 
