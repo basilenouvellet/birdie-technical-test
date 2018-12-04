@@ -22,14 +22,18 @@ db.connect((err) => {
 
 // routes
 app.use('/data', function (req, res) {
-    const sqlQuery = 'SELECT education, COUNT(education), AVG(age) '
+    const { variable } = req.query;
+
+    const sqlQuery = `SELECT ${variable}, COUNT(${variable}) AS count, AVG(age) AS average_age `
         + 'FROM census_learn_sql '
-        + 'GROUP BY education '
-        + 'ORDER BY AVG(age) DESC '
+        + `GROUP BY ${variable} `
+        + 'ORDER BY average_age DESC '
         + 'LIMIT 100';
 
     db.query(sqlQuery, function (error, results, fields) {
         if (error) throw error;
+        console.log('FIELDS', fields);
+        
         res.send(results);
     });
 });

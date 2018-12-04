@@ -2,7 +2,8 @@
 
 export const TABLE_ACTIONS_TYPES = {
     changeVariable: 'TABLE_ACTIONS_TYPES/changeVariable',
-    fetchTest: 'TABLE_ACTIONS_TYPES/fetchTest',
+    fetchData: 'TABLE_ACTIONS_TYPES/fetchData',
+    dataFetched: 'TABLE_ACTIONS_TYPES/dataFetched',
 };
 
 export function changeVariableAction(variable) {
@@ -14,9 +15,20 @@ export function changeVariableAction(variable) {
     };
 }
 
-export function fetchTestAction() {
+export function fetchDataAction(variable) {
     return {
-        type: TABLE_ACTIONS_TYPES.fetchTest,
-        payload: {},
+        type: TABLE_ACTIONS_TYPES.fetchData,
+        payload: {
+            variable,
+        },
+    };
+}
+
+export function dataFetchedAction(data) {
+    return {
+        type: TABLE_ACTIONS_TYPES.dataFetched,
+        payload: {
+            data,
+        },
     };
 }

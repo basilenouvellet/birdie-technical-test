@@ -19,33 +19,53 @@ type StateType = {||};
 class Table extends React.Component<PropsType, StateType> {
     state = {};
 
-    // ------------------------------------------- Render -------------------------------------------
-    render() {
-        const { variable, changeVariable, fetchTest } = this.props;
+    onButtonClick = () => {
+        const { fetchData } = this.props;
+        fetchData('education');
+    };
+
+    renderButton() {
+        const { variable } = this.props;
 
         return (
-            <div className="table">
-                <button onClick={() => {
-                    // changeVariable(Math.random() * 100);
-                    fetchTest();
-                }}>
-                    Change variable
-                </button>
+            <button
+                onClick={this.onButtonClick}
+                style={{
+                    width: '200px',
+                    height: '50px',
+                }}
+            >
+                {variable}
+            </button>
+        );
+    }
 
-                {variable.map((row, index) => (
-                    <div key={row.education}
-                        style={{
-                        width: '100%',
-                        display: 'flex',
-                        justifyContent: 'space-around',
-                    }}
-                    >
-                        <div>{index}</div>
-                        <div>{row.education}</div>
-                        <div>{row['COUNT(education)']}</div>
-                        <div>{row['AVG(age)']}</div>
-                    </div>
-                ))}
+    renderRows() {
+        const { variable, data } = this.props;
+
+        return data.map((row, index) => (
+            <div
+                key={row[variable]}
+                style={{
+                    width: '100%',
+                    display: 'flex',
+                    justifyContent: 'space-around',
+                }}
+            >
+                <div>{index}</div>
+                <div>{row[variable]}</div>
+                <div>{row['COUNT(education)']}</div>
+                <div>{row['AVG(age)']}</div>
+            </div>
+        ));
+    }
+
+    // ------------------------------------------- Render ------------------------------------------
+    render() {
+        return (
+            <div className="table">
+                {this.renderButton()}
+                {this.renderRows()}
             </div>
         );
     }
@@ -53,14 +73,12 @@ class Table extends React.Component<PropsType, StateType> {
 
 const mapStateToProps = (state: AppStateType): MappedStatePropsType => ({
     variable: state.variable,
+    data: state.data,
 });
 
 const mapDispatchToProps = (dispatch: *): MappedDispatchPropsType => ({
-    changeVariable: (variable) => {
-        dispatch(TableActions.changeVariableAction(variable));
-    },
-    fetchTest: () => {
-        dispatch(TableActions.fetchTestAction());
+    fetchData: (variable) => {
+        dispatch(TableActions.fetchDataAction(variable));
     },
 });
 
