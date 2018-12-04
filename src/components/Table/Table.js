@@ -21,14 +21,16 @@ class Table extends React.Component<PropsType, StateType> {
 
     // ------------------------------------------- Render -------------------------------------------
     render() {
-        const { variable, changeVariable } = this.props;
+        const { variable, changeVariable, fetchTest } = this.props;
 
         return (
             <div className="table">
-                <button onClick={() => { changeVariable(Math.random()*100); }}>
+                <button onClick={() => {
+                    // changeVariable(Math.random() * 100);
+                    fetchTest();
+                }}>
                     Change variable
                 </button>
-                {variable}
             </div>
         );
     }
@@ -39,7 +41,12 @@ const mapStateToProps = (state: AppStateType): MappedStatePropsType => ({
 });
 
 const mapDispatchToProps = (dispatch: *): MappedDispatchPropsType => ({
-    changeVariable: (variable) => { dispatch(TableActions.changeVariableAction(variable)) },
+    changeVariable: (variable) => {
+        dispatch(TableActions.changeVariableAction(variable));
+    },
+    fetchTest: () => {
+        dispatch(TableActions.fetchTestAction());
+    },
 });
 
 export default connect(
