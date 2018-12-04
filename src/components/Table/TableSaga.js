@@ -15,7 +15,7 @@ function* fetchTest(action) {
 
         console.log(action.type, data);
 
-        yield put(TableActions.changeVariableAction(data[0].maxAge));
+        yield put(TableActions.changeVariableAction(data));
     } catch (e) {
         // yield put(TableActions.errorOnFetch);
     }

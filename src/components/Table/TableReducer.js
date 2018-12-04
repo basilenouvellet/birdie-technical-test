@@ -3,7 +3,7 @@
 import { TABLE_ACTIONS_TYPES } from './TableActions';
 
 const TableReducer = (state = {
-    variable: null,
+    variable: [],
 }, action) => {
     switch (action.type) {
         case TABLE_ACTIONS_TYPES.changeVariable:

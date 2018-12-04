@@ -31,6 +31,21 @@ class Table extends React.Component<PropsType, StateType> {
                 }}>
                     Change variable
                 </button>
+
+                {variable.map((row, index) => (
+                    <div key={row.education}
+                        style={{
+                        width: '100%',
+                        display: 'flex',
+                        justifyContent: 'space-around',
+                    }}
+                    >
+                        <div>{index}</div>
+                        <div>{row.education}</div>
+                        <div>{row['COUNT(education)']}</div>
+                        <div>{row['AVG(age)']}</div>
+                    </div>
+                ))}
             </div>
         );
     }
