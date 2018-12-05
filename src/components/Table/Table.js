@@ -54,8 +54,8 @@ class Table extends React.Component<PropsType, StateType> {
             >
                 <div>{index}</div>
                 <div>{row[variable]}</div>
-                <div>{row['COUNT(education)']}</div>
-                <div>{row['AVG(age)']}</div>
+                <div>{row.count}</div>
+                <div>{row.average_age}</div>
             </div>
         ));
     }
