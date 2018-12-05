@@ -32,7 +32,7 @@ app.get('/data', function (req, res, next) {
             `FROM ${table}`,
             `GROUP BY \`${variable}\``,
             'ORDER BY average_age DESC',
-            'LIMIT 100',
+            // 'LIMIT 100',
         ].join(' ');
 
         console.log(sqlQuery);
