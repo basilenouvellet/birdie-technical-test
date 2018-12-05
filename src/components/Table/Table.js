@@ -16,6 +16,33 @@ type OwnPropsType = {||};
 type PropsType = MappedStatePropsType & MappedDispatchPropsType & OwnPropsType;
 
 class Table extends React.Component<PropsType> {
+    getCapitalizedVariable(): string {
+        const { variable } = this.props;
+
+        if (!variable) return null;
+
+        return variable
+            .split(' ')
+            .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+            .join(' ');
+    }
+
+    renderColumnsNames() {
+        const capitalizedVariable = this.getCapitalizedVariable();
+
+        if (!capitalizedVariable) return null;
+
+        return (
+            <Row
+                index='#'
+                variable={capitalizedVariable}
+                count='Count'
+                averageAge='Average Age'
+                isTitle
+            />
+        );
+    }
+
     renderRows() {
         const { variable, data } = this.props;
 
@@ -34,6 +61,7 @@ class Table extends React.Component<PropsType> {
     render() {
         return (
             <div className="table">
+                {this.renderColumnsNames()}
                 {this.renderRows()}
             </div>
         );
