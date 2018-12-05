@@ -27,10 +27,10 @@ function Row(props: PropsType): React.Element<'div'> {
 
     return (
         <div className={classNames} style={style}>
-            <div className="index">{index}</div>
-            <div className="variable">{variable}</div>
-            <div className="count">{count}</div>
-            <div className="averageAge">{averageAge}</div>
+            <div className="cell index">{index}</div>
+            <div className="cell variable">{variable}</div>
+            <div className="cell count">{count}</div>
+            <div className="cell averageAge">{averageAge}</div>
         </div>
     );
 }

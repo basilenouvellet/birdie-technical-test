@@ -19,14 +19,14 @@ function* fetchDataSaga(action) {
     const url = `/data?variable=${variable}`;
     const data = yield call(fetchApi, url);
 
-    yield put(TableActions.dataFetchedAction(data));
+    yield put(TableActions.setDataAction(data));
 }
 
 function* fetchColumnsSaga() {
     const rawColumns = yield call(fetchApi, '/columns');
     const columns = rawColumns.map(rawColumn => rawColumn.Field);
 
-    yield put(TableActions.columnsFetchedAction(columns));
+    yield put(TableActions.setColumnsAction(columns));
 }
 
 function* TableSaga() {

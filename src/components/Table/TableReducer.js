@@ -15,14 +15,19 @@ const TableReducer = (state = {
                 ...state,
                 variable,
             };
-        case TABLE_ACTIONS_TYPES.dataFetched:
+        case TABLE_ACTIONS_TYPES.setData:
             const { data } = action.payload;
 
             return {
                 ...state,
                 data,
             };
-            case TABLE_ACTIONS_TYPES.columnsFetched:
+            case TABLE_ACTIONS_TYPES.resetData:
+            return {
+                ...state,
+                data: [],
+            };
+        case TABLE_ACTIONS_TYPES.setColumns:
             const { columns } = action.payload;
 
             return {
