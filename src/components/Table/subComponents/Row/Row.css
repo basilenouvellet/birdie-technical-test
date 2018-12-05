@@ -1,0 +1,22 @@
+.row {
+    display: grid;
+    grid-template-columns: 1fr 3fr 2fr 2fr;
+    grid-template-rows: 5em;
+    grid-template-areas: 'index variable count average-age';
+}
+
+.index {
+    grid-area: index;
+}
+
+.variable {
+    grid-area: variable;
+}
+
+.count {
+    grid-area: count;
+}
+
+.averageAge {
+    grid-area: average-age;
+}

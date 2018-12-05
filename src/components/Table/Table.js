@@ -4,6 +4,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 
 import { TableActions } from './index';
+import Row from './subComponents/Row';
 
 import type { AppStateType } from '../../rootReducer';      // TODO: Is it the RIGHT PATH?
 
@@ -19,19 +20,13 @@ class Table extends React.Component<PropsType> {
         const { variable, data } = this.props;
 
         return data.map((row, index) => (
-            <div
-                key={`${row[variable]}${index}`}
-                style={{
-                    width: '100%',
-                    display: 'flex',
-                    justifyContent: 'space-around',
-                }}
-            >
-                <div>{index}</div>
-                <div>{row[variable]}</div>
-                <div>{row.count}</div>
-                <div>{row.average_age}</div>
-            </div>
+            <Row
+                key={`${row[variable]}${index}${row.count}`}
+                index={index}
+                variable={row[variable]}
+                count={row.count}
+                averageAge={row.average_age}
+            />
         ));
     }
 
