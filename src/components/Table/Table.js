@@ -33,9 +33,10 @@ class Table extends React.Component<PropsType, StateType> {
 
     variableHasChanged() {
         const { shortList } = this.state;
+
+        // reset shortlist to true
         if (!shortList) this.setState({ shortList: true });
     }
-
 
     getCapitalizedVariable(): string {
         const { variable } = this.props;
