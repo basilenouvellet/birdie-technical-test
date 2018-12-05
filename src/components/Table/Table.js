@@ -25,6 +25,18 @@ class Table extends React.Component<PropsType, StateType> {
         shortList: true,
     };
 
+    componentDidUpdate(prevProps: PropsType) {
+        const { variable } = this.props;
+
+        if (prevProps.variable !== variable) this.variableHasChanged();
+    }
+
+    variableHasChanged() {
+        const { shortList } = this.state;
+        if (!shortList) this.setState({ shortList: true });
+    }
+
+
     getCapitalizedVariable(): string {
         const { variable } = this.props;
 
@@ -64,7 +76,7 @@ class Table extends React.Component<PropsType, StateType> {
 
         return data
             .slice(0, shortList && data.length >= 100
-                ? 101
+                ? 100
                 : data.length)
             .map((row, index) => (
                 <Row
