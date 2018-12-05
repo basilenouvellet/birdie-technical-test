@@ -16,7 +16,15 @@ type MappedDispatchPropsType = {||};
 type OwnPropsType = {||};
 type PropsType = MappedStatePropsType & MappedDispatchPropsType & OwnPropsType;
 
-class Table extends React.Component<PropsType> {
+type StateType = {|
+    shortList: boolean,
+|};
+
+class Table extends React.Component<PropsType, StateType> {
+    state: StateType = {
+        shortList: true,
+    };
+
     getCapitalizedVariable(): string {
         const { variable } = this.props;
 
@@ -27,6 +35,12 @@ class Table extends React.Component<PropsType> {
             .map(word => word.charAt(0).toUpperCase() + word.slice(1))
             .join(' ');
     }
+
+    onFooterClick = () => {
+        this.setState(state => ({
+            shortList: !state.shortList,
+        }));
+    };
 
     renderColumnsNames() {
         const capitalizedVariable = this.getCapitalizedVariable();
@@ -46,25 +60,44 @@ class Table extends React.Component<PropsType> {
 
     renderRows() {
         const { variable, data } = this.props;
+        const { shortList } = this.state;
 
-        return data.map((row, index) => (
-            <Row
-                key={`${row[variable]}${index}${row.count}`}
-                index={index}
-                variable={row[variable]}
-                count={row.count}
-                averageAge={row.average_age}
-            />
-        ));
+        return data
+            .slice(0, shortList && data.length >= 100
+                ? 101
+                : data.length)
+            .map((row, index) => (
+                <Row
+                    key={`${row[variable]}${index}${row.count}`}
+                    index={index}
+                    variable={row[variable]}
+                    count={row.count}
+                    averageAge={row.average_age}
+                />
+            ));
     }
 
     renderFooter() {
         const { variable, data } = this.props;
+        const { shortList } = this.state;
 
-        if (!variable || !data.length) return null;
+        if (
+            !variable // no variable selected
+            || !data.length // or no data to show
+            || data.length <= 100 // or less than 100 rows
+        ) return null;
 
         return (
-            <div className="footer">Footer goes here, 232 results not shown</div>
+            <div
+                className="footer"
+                onClick={this.onFooterClick}
+            >
+                {
+                    shortList
+                        ? `Show ${data.length - 100} more`
+                        : 'Hide rows'
+                }
+            </div>
         );
     }
 
