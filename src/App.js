@@ -10,8 +10,8 @@ class App extends Component {
         return (
             <div className="App">
                 <header className="App-header">Birdie Technical Test - Basile NOUVELLET</header>
-                <SelectButton />
-                <Table />
+                <SelectButton/>
+                <Table/>
             </div>
         );
     }

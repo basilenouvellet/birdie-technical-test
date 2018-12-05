@@ -1,0 +1,33 @@
+.row {
+    display: grid;
+    grid-template-columns: 10% 60% 15% 15%;
+    grid-template-rows: 2.2em;
+    grid-template-areas: 'index variable count average-age';
+    align-items: center;
+    text-align: start;
+    padding: 0 2em;
+}
+
+.title {
+    grid-template-rows: 3em;
+    font-weight: bold;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+
+.index {
+    grid-area: index;
+}
+
+.variable {
+    grid-area: variable;
+}
+
+.count {
+    grid-area: count;
+}
+
+.averageAge {
+    grid-area: average-age;
+}
