@@ -14,32 +14,7 @@ type MappedDispatchPropsType = {||};
 type OwnPropsType = {||};
 type PropsType = MappedStatePropsType & MappedDispatchPropsType & OwnPropsType;
 
-type StateType = {||};
-
-class Table extends React.Component<PropsType, StateType> {
-    state = {};
-
-    onButtonClick = () => {
-        const { fetchData, variable } = this.props;
-        fetchData(variable);
-    };
-
-    renderButton() {
-        const { variable } = this.props;
-
-        return (
-            <button
-                onClick={this.onButtonClick}
-                style={{
-                    width: '200px',
-                    height: '50px',
-                }}
-            >
-                {variable}
-            </button>
-        );
-    }
-
+class Table extends React.Component<PropsType> {
     renderRows() {
         const { variable, data } = this.props;
 
@@ -64,7 +39,6 @@ class Table extends React.Component<PropsType, StateType> {
     render() {
         return (
             <div className="table">
-                {this.renderButton()}
                 {this.renderRows()}
             </div>
         );
