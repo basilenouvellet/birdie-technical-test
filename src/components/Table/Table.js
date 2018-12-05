@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 
 import { TableActions } from './index';
 import Row from './subComponents/Row';
+import Spinner from './subComponents/Spinner';
 
 import type { AppStateType } from '../../rootReducer';      // TODO: Is it the RIGHT PATH?
 
@@ -67,6 +68,22 @@ class Table extends React.Component<PropsType> {
         );
     }
 
+    renderSpinner() {
+        const { variable, data } = this.props;
+
+        const isOpen = (
+            (
+                variable // a variable is selected
+                && !(data && data.length) // and we have no data to show, yet
+            )
+            // TODO: or variable not according to data
+        );
+
+        return (
+            <Spinner open={isOpen}/>
+        );
+    }
+
     // ------------------------------------------- Render ------------------------------------------
     render() {
         return (
@@ -74,6 +91,7 @@ class Table extends React.Component<PropsType> {
                 {this.renderColumnsNames()}
                 {this.renderRows()}
                 {this.renderFooter()}
+                {this.renderSpinner()}
             </div>
         );
     }
