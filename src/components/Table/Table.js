@@ -3,16 +3,19 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 
-import { TableActions } from './index';
 import Row from './subComponents/Row';
 import Spinner from './subComponents/Spinner';
 
 import './Table.css';
 
-type MappedStatePropsType = {||};
-type MappedDispatchPropsType = {||};
+import type { TableStateType, TableStateVariableType, TableStateDataType } from './index';
+
+type MappedStatePropsType = {|
+  variable: TableStateVariableType,
+  data: TableStateDataType,
+|};
 type OwnPropsType = {||};
-type PropsType = MappedStatePropsType & MappedDispatchPropsType & OwnPropsType;
+type PropsType = MappedStatePropsType & OwnPropsType;
 
 type StateType = {|
     shortList: boolean,
@@ -29,7 +32,7 @@ class Table extends React.Component<PropsType, StateType> {
       if (prevProps.variable !== variable) this.variableHasChanged();
     }
 
-    getCapitalizedVariable(): string {
+    getCapitalizedVariable(): ?string {
       const { variable } = this.props;
 
       if (!variable) return null;
@@ -40,11 +43,20 @@ class Table extends React.Component<PropsType, StateType> {
         .join(' ');
     }
 
-    onFooterClick = () => {
-      this.setState(state => ({
+    onFooterClick = (): void => {
+      this.setState((state: StateType) => ({
         shortList: !state.shortList,
       }));
     };
+
+    getSlicedRows(): TableStateDataType {
+      const { data } = this.props;
+      const { shortList } = this.state;
+
+      const shouldBeSliced = shortList && data.length >= 100;
+
+      return data.slice(0, shouldBeSliced ? 100 : data.length);
+    }
 
     variableHasChanged() {
       const { shortList } = this.state;
@@ -53,7 +65,7 @@ class Table extends React.Component<PropsType, StateType> {
       if (!shortList) this.setState({ shortList: true });
     }
 
-    renderColumnsNames() {
+    renderColumnsNames(): ?React.Element<Row> {
       const capitalizedVariable = this.getCapitalizedVariable();
 
       if (!capitalizedVariable) return null;
@@ -69,33 +81,28 @@ class Table extends React.Component<PropsType, StateType> {
       );
     }
 
-    renderRows() {
-      const { variable, data } = this.props;
-      const { shortList } = this.state;
+    renderRows(): Array<React.Element<Row>> {
+      const { variable } = this.props;
 
-      return data
-        .slice(0, shortList && data.length >= 100
-          ? 100
-          : data.length)
-        .map((row, index) => (
-          <Row
-            key={`${row[variable]}${row.count}${row.averageAge}`}
-            index={index}
-            variable={row[variable]}
-            count={row.count}
-            averageAge={row.average_age}
-          />
-        ));
+      return this.getSlicedRows().map((row, index) => (
+        <Row
+          key={`${row[variable]}${row.count}${row.averageAge}`}
+          index={index}
+          variable={row[variable]}
+          count={row.count}
+          averageAge={row.average_age}
+        />
+      ));
     }
 
-    renderFooter() {
+    renderFooter(): ?React.Element<'button'> {
       const { variable, data } = this.props;
       const { shortList } = this.state;
 
       if (
         !variable // no variable selected
-            || !data.length // or no data to show
-            || data.length <= 100 // or less than 100 rows
+          || !data.length // or no data to show
+          || data.length <= 100 // or less than 100 rows
       ) return null;
 
       return (
@@ -113,15 +120,12 @@ class Table extends React.Component<PropsType, StateType> {
       );
     }
 
-    renderSpinner() {
+    renderSpinner(): React.Element<Spinner> {
       const { variable, data } = this.props;
 
       const isOpen = (
-        (
-          variable // a variable is selected
-                && !(data && data.length) // and we have no data to show, yet
-        )
-        // TODO: or variable not according to data
+        variable // a variable is selected
+          && !(data && data.length) // and we have no data to show, yet
       );
 
       return (
@@ -130,7 +134,7 @@ class Table extends React.Component<PropsType, StateType> {
     }
 
     // ------------------------------------------- Render ------------------------------------------
-    render() {
+    render(): React.Element<'div'> {
       return (
         <div className="table">
           {this.renderColumnsNames()}
@@ -146,21 +150,12 @@ class Table extends React.Component<PropsType, StateType> {
     }
 }
 
-const mapStateToProps = (state: AppStateType): MappedStatePropsType => ({
+const mapStateToProps = (state: TableStateType): MappedStatePropsType => ({
   variable: state.variable,
   data: state.data,
 });
 
-const mapDispatchToProps = (dispatch: *): MappedDispatchPropsType => ({
-  fetchData: (variable) => {
-    dispatch(TableActions.fetchDataAction(variable));
-  },
-  fetchColumns: () => {
-    dispatch(TableActions.fetchColumnsAction());
-  },
-});
-
 export default connect(
   mapStateToProps,
-  mapDispatchToProps,
+  null,
 )(Table);

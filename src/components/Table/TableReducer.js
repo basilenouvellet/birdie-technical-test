@@ -1,32 +1,58 @@
 // @flow
 
-import { TABLE_ACTIONS_TYPES } from './TableActions';
+import { types } from './TableActions';
+import type { TableActionType } from './TableActions';
 
-const initialState = {
+export type TableStateColumnsType = Array<string>;
+export type TableStateVariableType = ?string;
+export type TableStateDataType = Array<Object>;
+
+export type TableStateType = {|
+  columns: TableStateColumnsType,
+  variable: TableStateVariableType,
+  data: TableStateDataType,
+|};
+
+const initialState: TableStateType = {
   columns: [],
   variable: null,
   data: [],
 };
 
-const TableReducer = (state = initialState, action) => {
+const TableReducer = (
+  state: TableStateType = initialState,
+  action: TableActionType,
+): TableStateType => {
   switch (action.type) {
-    case TABLE_ACTIONS_TYPES.setVariable: {
+    case types.SET_VARIABLE: {
       const { variable } = action.payload;
 
-      return { ...state, variable };
+      return {
+        ...state,
+        variable,
+      };
     }
-    case TABLE_ACTIONS_TYPES.setData: {
+    case types.SET_DATA: {
       const { data } = action.payload;
 
-      return { ...state, data };
+      return {
+        ...state,
+        data,
+      };
     }
-    case TABLE_ACTIONS_TYPES.resetData: {
-      return { ...state, data: [] };
+    case types.RESET_DATA: {
+      return {
+        ...state,
+        data: [],
+      };
     }
-    case TABLE_ACTIONS_TYPES.setColumns: {
+    case types.SET_COLUMNS: {
       const { columns } = action.payload;
 
-      return { ...state, columns };
+      return {
+        ...state,
+        columns,
+      };
     }
     default:
       return state;

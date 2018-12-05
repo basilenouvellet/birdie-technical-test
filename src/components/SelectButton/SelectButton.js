@@ -8,8 +8,18 @@ import { TableActions } from '../Table';
 
 import './SelectButton.css';
 
-type MappedStatePropsType = {||};
-type MappedDispatchPropsType = {||};
+import type { TableStateColumnsType, TableStateType, TableStateVariableType } from '../Table';
+
+type MappedStatePropsType = {|
+  columns: TableStateColumnsType,
+  variable: TableStateVariableType,
+|};
+type MappedDispatchPropsType = {|
+  fetchColumns: () => void,
+  fetchData: (variable: TableStateVariableType) => void,
+  setVariable: (variable: TableStateVariableType) => void,
+  resetData: () => void,
+|};
 type OwnPropsType = {||};
 type PropsType = MappedStatePropsType & MappedDispatchPropsType & OwnPropsType;
 
@@ -37,36 +47,37 @@ class SelectButton extends React.Component<PropsType> {
       }));
   }
 
-    handleChange = (newOption) => {
-      const {
-        variable, setVariable, resetData, fetchData,
-      } = this.props;
-      const { value: newValue } = newOption;
+  handleChange = (newOption) => {
+    const {
+      variable, setVariable, resetData, fetchData,
+    } = this.props;
 
-      if (variable !== newValue) {
-        setVariable(newValue);
-        resetData(); // reset data in store since it no longer matches the variable
-        fetchData(newValue); // start fetching the data corresponding to the new variable
-      }
-    };
+    const { value: newValue } = newOption;
 
-    // ------------------------------------------ Render ------------------------------------------
-    render(): React.Element<'div'> {
-      const options = this.getOptions();
-
-      return (
-        <Select
-          className="select-button"
-          styles={selectStyles}
-          placeholder="Select a variable..."
-          onChange={this.handleChange}
-          options={options}
-        />
-      );
+    if (variable !== newValue) {
+      setVariable(newValue);
+      resetData(); // reset data in store since it no longer matches the variable
+      fetchData(newValue); // start fetching the data corresponding to the new variable
     }
+  };
+
+  // ------------------------------------------- Render -------------------------------------------
+  render(): React.Element<*> {
+    const options = this.getOptions();
+
+    return (
+      <Select
+        className="select-button"
+        styles={selectStyles}
+        placeholder="Select a variable..."
+        onChange={this.handleChange}
+        options={options}
+      />
+    );
+  }
 }
 
-const mapStateToProps = (state: AppStateType): MappedStatePropsType => ({
+const mapStateToProps = (state: TableStateType): MappedStatePropsType => ({
   columns: state.columns,
   variable: state.variable,
 });
@@ -75,13 +86,13 @@ const mapDispatchToProps = (dispatch: *): MappedDispatchPropsType => ({
   fetchColumns: () => {
     dispatch(TableActions.fetchColumnsAction());
   },
-  fetchData: (variable) => {
+  fetchData: (variable: TableStateVariableType): void => {
     dispatch(TableActions.fetchDataAction(variable));
   },
-  setVariable: (variable) => {
+  setVariable: (variable: TableStateVariableType): void => {
     dispatch(TableActions.setVariableAction(variable));
   },
-  resetData: () => {
+  resetData: (): void => {
     dispatch(TableActions.resetDataAction());
   },
 });
