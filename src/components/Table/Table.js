@@ -135,8 +135,12 @@ class Table extends React.Component<PropsType, StateType> {
         return (
             <div className="table">
                 {this.renderColumnsNames()}
-                {this.renderRows()}
-                {this.renderFooter()}
+
+                <div className="rows-container">
+                    {this.renderRows()}
+                    {this.renderFooter()}
+                </div>
+
                 {this.renderSpinner()}
             </div>
         );

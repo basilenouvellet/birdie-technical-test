@@ -15,6 +15,13 @@ type MappedDispatchPropsType = {||};
 type OwnPropsType = {||};
 type PropsType = MappedStatePropsType & MappedDispatchPropsType & OwnPropsType;
 
+const selectStyles = {
+    option: (provided) => ({
+        ...provided,
+        textAlign: 'start',
+    }),
+};
+
 class SelectButton extends React.Component<PropsType> {
     componentDidMount() {
         const { fetchColumns } = this.props;
@@ -50,6 +57,7 @@ class SelectButton extends React.Component<PropsType> {
         return (
             <Select
                 className="select-button"
+                styles={selectStyles}
                 placeholder="Select a variable..."
                 onChange={this.handleChange}
                 options={options}
