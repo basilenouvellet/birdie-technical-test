@@ -23,21 +23,32 @@ db.connect((err) => {
 });
 
 // routes
-app.use('/data', function (req, res) {
+app.get('/data', function (req, res, next) {
     const { variable } = req.query;
 
-    const sqlQuery = [
-        `SELECT ${variable}, COUNT(${variable}) AS count, AVG(age) AS average_age`,
-        `FROM ${table}`,
-        `GROUP BY ${variable}`,
-        'ORDER BY average_age DESC',
-        'LIMIT 100',
-    ].join(' ');
+    if (variable) {
+        const sqlQuery = [
+            `SELECT \`${variable}\`, COUNT(\`${variable}\`) AS count, AVG(age) AS average_age`,
+            `FROM ${table}`,
+            `GROUP BY \`${variable}\``,
+            'ORDER BY average_age DESC',
+            'LIMIT 100',
+        ].join(' ');
 
-    db.query(sqlQuery, function (error, results) {
-        if (error) throw error;
-        res.send(results);
-    });
+        console.log(sqlQuery);
+
+        db.query(sqlQuery, function (error, results) {
+            if (error) {
+                console.error(error);
+                next();
+            }
+            res.send(results);
+        });
+    } else {
+        console.log('Empty variable in SQL request', variable);
+        next();
+    }
+
 });
 
 app.use('/columns', function (req, res) {
