@@ -22,7 +22,12 @@ const TableReducer = (state = {
                 ...state,
                 data,
             };
-            case TABLE_ACTIONS_TYPES.setColumns:
+            case TABLE_ACTIONS_TYPES.resetData:
+            return {
+                ...state,
+                data: [],
+            };
+        case TABLE_ACTIONS_TYPES.setColumns:
             const { columns } = action.payload;
 
             return {

@@ -33,12 +33,13 @@ class SelectButton extends React.Component<PropsType> {
     }
 
     handleChange = (newOption) => {
-        const { variable, fetchData, setVariable } = this.props;
+        const { variable, setVariable, resetData, fetchData } = this.props;
         const { value: newValue } = newOption;
 
         if (variable !== newValue) {
             setVariable(newValue);
-            fetchData(newValue);
+            resetData(); // reset data in store since it no longer matches the variable
+            fetchData(newValue); // start fetching the data corresponding to the new variable
         }
     };
 
@@ -71,6 +72,9 @@ const mapDispatchToProps = (dispatch: *): MappedDispatchPropsType => ({
     },
     setVariable: (variable) => {
         dispatch(TableActions.setVariableAction(variable));
+    },
+    resetData: () => {
+        dispatch(TableActions.resetDataAction());
     },
 });
 

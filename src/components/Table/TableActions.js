@@ -6,6 +6,7 @@ export const TABLE_ACTIONS_TYPES = {
     fetchData: 'TABLE_ACTIONS_TYPES/fetchData',
     setColumns: 'TABLE_ACTIONS_TYPES/setColumns',
     setData: 'TABLE_ACTIONS_TYPES/setData',
+    resetData: 'TABLE_ACTIONS_TYPES/resetData',
 };
 
 export function setVariableAction(variable) {
@@ -39,6 +40,13 @@ export function setDataAction(data) {
         payload: {
             data,
         },
+    };
+}
+
+export function resetDataAction(data) {
+    return {
+        type: TABLE_ACTIONS_TYPES.resetData,
+        payload: {},
     };
 }
 
