@@ -3,6 +3,7 @@
     border-radius: 10px;
     background-color: white;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+    overflow: hidden;
 }
 
 .rows-container {
@@ -11,11 +12,7 @@
 }
 
 .rows-container::-webkit-scrollbar-track {
-    display: none;
-}
-
-.rows-container::-webkit-scrollbar-track-piece {
-    display: none;
+    margin: 2px 0 0 0;
 }
 
 .rows-container::-webkit-scrollbar {
@@ -24,7 +21,6 @@
 
 .rows-container::-webkit-scrollbar-thumb {
     border-radius: 10px;
-    -webkit-box-shadow: inset 0 0 6px rgba(55, 55, 55, 0.3);
     background-color: #9a9a9a;
 }
 

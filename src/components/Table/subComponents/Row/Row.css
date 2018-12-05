@@ -9,7 +9,6 @@
 
 .title {
     position: relative;
-    z-index: 3;
     grid-template-rows: 3em;
     font-weight: bold;
     border-top-left-radius: 10px;
