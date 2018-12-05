@@ -1,0 +1,37 @@
+{
+  "root": true,
+  "parser": "babel-eslint",
+  "extends": [
+    "airbnb",
+    "plugin:flowtype/recommended"
+  ],
+  "plugins": [
+    "flowtype"
+  ],
+  "env": {
+    "browser": true
+  },
+  "rules": {
+    "react/jsx-filename-extension": 0,
+    "no-console": 0
+  },
+  "settings": {
+    "flowtype": {
+      "onlyFilesWithFlowAnnotation": true
+    }
+  },
+  "globals": {
+    "ELECTRON": true,
+    "isElectron": true
+  },
+  "overrides": [
+    {
+      "files": [
+        "*.test.js"
+      ],
+      "env": {
+        "jest": true
+      }
+    }
+  ]
+}
