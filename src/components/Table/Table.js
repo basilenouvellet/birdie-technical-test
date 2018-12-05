@@ -14,38 +14,13 @@ type MappedDispatchPropsType = {||};
 type OwnPropsType = {||};
 type PropsType = MappedStatePropsType & MappedDispatchPropsType & OwnPropsType;
 
-type StateType = {||};
-
-class Table extends React.Component<PropsType, StateType> {
-    state = {};
-
-    onButtonClick = () => {
-        const { fetchData } = this.props;
-        fetchData('education');
-    };
-
-    renderButton() {
-        const { variable } = this.props;
-
-        return (
-            <button
-                onClick={this.onButtonClick}
-                style={{
-                    width: '200px',
-                    height: '50px',
-                }}
-            >
-                {variable}
-            </button>
-        );
-    }
-
+class Table extends React.Component<PropsType> {
     renderRows() {
         const { variable, data } = this.props;
 
         return data.map((row, index) => (
             <div
-                key={row[variable]}
+                key={`${row[variable]}${index}`}
                 style={{
                     width: '100%',
                     display: 'flex',
@@ -54,8 +29,8 @@ class Table extends React.Component<PropsType, StateType> {
             >
                 <div>{index}</div>
                 <div>{row[variable]}</div>
-                <div>{row['COUNT(education)']}</div>
-                <div>{row['AVG(age)']}</div>
+                <div>{row.count}</div>
+                <div>{row.average_age}</div>
             </div>
         ));
     }
@@ -64,8 +39,6 @@ class Table extends React.Component<PropsType, StateType> {
     render() {
         return (
             <div className="table">
-                <button onClick={() => this.props.fetchColumns()}>Columns</button>
-                {this.renderButton()}
                 {this.renderRows()}
             </div>
         );

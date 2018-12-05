@@ -1,16 +1,16 @@
 // @flow
 
 export const TABLE_ACTIONS_TYPES = {
-    changeVariable: 'TABLE_ACTIONS_TYPES/changeVariable',
+    setVariable: 'TABLE_ACTIONS_TYPES/setVariable',
     fetchColumns: 'TABLE_ACTIONS_TYPES/fetchColumns',
     fetchData: 'TABLE_ACTIONS_TYPES/fetchData',
     columnsFetched: 'TABLE_ACTIONS_TYPES/columnsFetched',
     dataFetched: 'TABLE_ACTIONS_TYPES/dataFetched',
 };
 
-export function changeVariableAction(variable) {
+export function setVariableAction(variable) {
     return {
-        type: TABLE_ACTIONS_TYPES.changeVariable,
+        type: TABLE_ACTIONS_TYPES.setVariable,
         payload: {
             variable,
         },
