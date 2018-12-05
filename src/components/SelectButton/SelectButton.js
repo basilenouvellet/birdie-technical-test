@@ -4,7 +4,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import Select from "react-select";
 
-import { TableActions } from "../Table";        // TODO: Create CSS file
+import { TableActions } from "../Table";
 
 import type { AppStateType } from '../../rootReducer';      // TODO: Is it the RIGHT PATH?
 
@@ -30,11 +30,26 @@ class SelectButton extends React.Component<PropsType> {
         }));
     }
 
+    handleChange = (newOption) => {
+        const { variable, fetchData, setVariable } = this.props;
+        const { value: newValue } = newOption;
+
+        if (variable !== newValue) {
+            setVariable(newValue);
+            fetchData(newValue);
+        }
+    };
+
     // ------------------------------------------ Render ------------------------------------------
     render(): React.Element<'div'> {
+        const options = this.getOptions();
+
         return (
             <Select
-                options={this.getOptions()}
+                className="select-button"
+                placeholder="Select a variable..."
+                onChange={this.handleChange}
+                options={options}
             />
         );
     }
@@ -42,13 +57,19 @@ class SelectButton extends React.Component<PropsType> {
 
 const mapStateToProps = (state: AppStateType): MappedStatePropsType => ({
     columns: state.columns,
+    variable: state.variable,
 });
 
 const mapDispatchToProps = (dispatch: *): MappedDispatchPropsType => ({
     fetchColumns: () => {
         dispatch(TableActions.fetchColumnsAction());
     },
-
+    fetchData: (variable) => {
+        dispatch(TableActions.fetchDataAction(variable));
+    },
+    setVariable: (variable) => {
+        dispatch(TableActions.setVariableAction(variable));
+    },
 });
 
 export default connect(
