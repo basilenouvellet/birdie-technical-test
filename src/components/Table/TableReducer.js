@@ -8,7 +8,7 @@ const TableReducer = (state = {
     data: [],
 }, action) => {
     switch (action.type) {
-        case TABLE_ACTIONS_TYPES.changeVariable:
+        case TABLE_ACTIONS_TYPES.setVariable:
             const { variable } = action.payload;
 
             return {
