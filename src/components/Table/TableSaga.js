@@ -1,22 +1,39 @@
 // @flow
 
-// import { call, put, takeEvery, takeLatest } from 'redux-saga/effects';
+import { call, put, all, takeLatest } from 'redux-saga/effects';
 
-// import { TableActions } from './index';
+import { TABLE_ACTIONS_TYPES } from './TableActions';
+import { TableActions } from './index';
 
-// import Api from '...'
+function fetchApi(url) {
+    return fetch(url)
+        .then(res => res.json())
+        .catch(err => {
+            console.error(err);
+            return [];
+        });
+}
 
-// function* fetchUser(action) {
-//     try {
-//         const user = yield call(Api.fetchUser, action.payload.userId);
-//         yield put({type: "USER_FETCH_SUCCEEDED", user: user});
-//     } catch (e) {
-//         yield put({type: "USER_FETCH_FAILED", message: e.message});
-//     }
-// }
+function* fetchDataSaga(action) {
+    const { variable } = action.payload;
+    const url = `/data?variable=${variable}`;
+    const data = yield call(fetchApi, url);
+
+    yield put(TableActions.dataFetchedAction(data));
+}
+
+function* fetchColumnsSaga() {
+    const rawColumns = yield call(fetchApi, '/columns');
+    const columns = rawColumns.map(rawColumn => rawColumn.Field);
+
+    yield put(TableActions.columnsFetchedAction(columns));
+}
 
 function* TableSaga() {
-    // yield takeLatest("USER_FETCH_REQUESTED", fetchUser);
+    yield all([
+        takeLatest(TABLE_ACTIONS_TYPES.fetchColumns, fetchColumnsSaga),
+        takeLatest(TABLE_ACTIONS_TYPES.fetchData, fetchDataSaga),
+    ]);
 }
 
 export default TableSaga;
