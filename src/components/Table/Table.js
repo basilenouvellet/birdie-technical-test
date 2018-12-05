@@ -20,8 +20,8 @@ class Table extends React.Component<PropsType, StateType> {
     state = {};
 
     onButtonClick = () => {
-        const { fetchData } = this.props;
-        fetchData('education');
+        const { fetchData, variable } = this.props;
+        fetchData(variable);
     };
 
     renderButton() {
@@ -45,7 +45,7 @@ class Table extends React.Component<PropsType, StateType> {
 
         return data.map((row, index) => (
             <div
-                key={row[variable]}
+                key={`${row[variable]}${index}`}
                 style={{
                     width: '100%',
                     display: 'flex',
@@ -64,7 +64,6 @@ class Table extends React.Component<PropsType, StateType> {
     render() {
         return (
             <div className="table">
-                <button onClick={() => this.props.fetchColumns()}>Columns</button>
                 {this.renderButton()}
                 {this.renderRows()}
             </div>
