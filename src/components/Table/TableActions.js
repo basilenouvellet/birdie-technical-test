@@ -1,17 +1,17 @@
 // @flow
 
-export const TABLE_ACTIONS_TYPES = {
-  setVariable: 'TABLE_ACTIONS_TYPES/setVariable',
-  fetchColumns: 'TABLE_ACTIONS_TYPES/fetchColumns',
-  fetchData: 'TABLE_ACTIONS_TYPES/fetchData',
-  setColumns: 'TABLE_ACTIONS_TYPES/setColumns',
-  setData: 'TABLE_ACTIONS_TYPES/setData',
-  resetData: 'TABLE_ACTIONS_TYPES/resetData',
+export const types = {
+  SET_VARIABLE: 'table/SET_VARIABLE',
+  FETCH_COLUMNS: 'table/FETCH_COLUMNS',
+  FETCH_DATA: 'table/FETCH_DATA',
+  SET_COLUMNS: 'table/SET_COLUMNS',
+  SET_DATA: 'table/SET_DATA',
+  RESET_DATA: 'table/RESET_DATA',
 };
 
 export function setVariableAction(variable) {
   return {
-    type: TABLE_ACTIONS_TYPES.setVariable,
+    type: types.SET_VARIABLE,
     payload: {
       variable,
     },
@@ -20,14 +20,14 @@ export function setVariableAction(variable) {
 
 export function fetchColumnsAction() {
   return {
-    type: TABLE_ACTIONS_TYPES.fetchColumns,
+    type: types.FETCH_COLUMNS,
     payload: {},
   };
 }
 
 export function fetchDataAction(variable) {
   return {
-    type: TABLE_ACTIONS_TYPES.fetchData,
+    type: types.FETCH_DATA,
     payload: {
       variable,
     },
@@ -36,7 +36,7 @@ export function fetchDataAction(variable) {
 
 export function setDataAction(data) {
   return {
-    type: TABLE_ACTIONS_TYPES.setData,
+    type: types.SET_DATA,
     payload: {
       data,
     },
@@ -45,14 +45,14 @@ export function setDataAction(data) {
 
 export function resetDataAction() {
   return {
-    type: TABLE_ACTIONS_TYPES.resetData,
+    type: types.RESET_DATA,
     payload: {},
   };
 }
 
 export function setColumnsAction(columns) {
   return {
-    type: TABLE_ACTIONS_TYPES.setColumns,
+    type: types.SET_COLUMNS,
     payload: {
       columns,
     },

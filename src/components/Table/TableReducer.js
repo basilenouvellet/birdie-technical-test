@@ -1,6 +1,6 @@
 // @flow
 
-import { TABLE_ACTIONS_TYPES } from './TableActions';
+import { types } from './TableActions';
 
 const initialState = {
   columns: [],
@@ -10,20 +10,20 @@ const initialState = {
 
 const TableReducer = (state = initialState, action) => {
   switch (action.type) {
-    case TABLE_ACTIONS_TYPES.setVariable: {
+    case types.SET_VARIABLE: {
       const { variable } = action.payload;
 
       return { ...state, variable };
     }
-    case TABLE_ACTIONS_TYPES.setData: {
+    case types.SET_DATA: {
       const { data } = action.payload;
 
       return { ...state, data };
     }
-    case TABLE_ACTIONS_TYPES.resetData: {
+    case types.RESET_DATA: {
       return { ...state, data: [] };
     }
-    case TABLE_ACTIONS_TYPES.setColumns: {
+    case types.SET_COLUMNS: {
       const { columns } = action.payload;
 
       return { ...state, columns };

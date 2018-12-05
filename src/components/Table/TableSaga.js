@@ -4,7 +4,7 @@ import {
   call, put, all, takeLatest,
 } from 'redux-saga/effects';
 
-import { TABLE_ACTIONS_TYPES } from './TableActions';
+import { types } from './TableActions';
 import { TableActions } from './index';
 
 function fetchApi(url) {
@@ -33,8 +33,8 @@ function* fetchColumnsSaga() {
 
 function* TableSaga() {
   yield all([
-    takeLatest(TABLE_ACTIONS_TYPES.fetchColumns, fetchColumnsSaga),
-    takeLatest(TABLE_ACTIONS_TYPES.fetchData, fetchDataSaga),
+    takeLatest(types.FETCH_COLUMNS, fetchColumnsSaga),
+    takeLatest(types.FETCH_DATA, fetchDataSaga),
   ]);
 }
 
