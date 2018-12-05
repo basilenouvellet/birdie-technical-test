@@ -57,12 +57,23 @@ class Table extends React.Component<PropsType> {
         ));
     }
 
+    renderFooter() {
+        const { variable, data } = this.props;
+
+        if (!variable || !data) return null;
+
+        return (
+            <div className="footer">Footer goes here, 232 results not shown</div>
+        );
+    }
+
     // ------------------------------------------- Render ------------------------------------------
     render() {
         return (
             <div className="table">
                 {this.renderColumnsNames()}
                 {this.renderRows()}
+                {this.renderFooter()}
             </div>
         );
     }

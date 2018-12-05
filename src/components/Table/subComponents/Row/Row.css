@@ -1,9 +1,11 @@
 .row {
     display: grid;
-    grid-template-columns: 10% 30% 30% 30%;
-    grid-template-rows: 2em;
+    grid-template-columns: 10% 60% 15% 15%;
+    grid-template-rows: 2.2em;
     grid-template-areas: 'index variable count average-age';
     align-items: center;
+    text-align: start;
+    padding: 0 2em;
 }
 
 .title {
