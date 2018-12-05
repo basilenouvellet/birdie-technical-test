@@ -4,8 +4,8 @@ import TableReducer from './TableReducer';
 import TableSaga from './TableSaga';
 
 export {
-    Table as default,
-    TableActions,
-    TableReducer,
-    TableSaga,
+  Table as default,
+  TableActions,
+  TableReducer,
+  TableSaga,
 };

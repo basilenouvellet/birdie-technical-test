@@ -10,8 +10,8 @@ const sagaMiddleware = createSagaMiddleware();
 
 // mount it on the Store
 const store = createStore(
-    TableReducer,
-    applyMiddleware(sagaMiddleware),
+  TableReducer,
+  applyMiddleware(sagaMiddleware),
 );
 
 // then run the saga

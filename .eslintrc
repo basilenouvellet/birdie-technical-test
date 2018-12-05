@@ -11,6 +11,10 @@
   "env": {
     "browser": true
   },
+  "rules": {
+    "react/jsx-filename-extension": 0,
+    "no-console": 0
+  },
   "settings": {
     "flowtype": {
       "onlyFilesWithFlowAnnotation": true
@@ -22,7 +26,9 @@
   },
   "overrides": [
     {
-      "files": ["*.test.js"],
+      "files": [
+        "*.test.js"
+      ],
       "env": {
         "jest": true
       }
