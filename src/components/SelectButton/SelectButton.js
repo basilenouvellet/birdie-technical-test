@@ -3,7 +3,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import Select from 'react-select';
-import type { SelectBase } from 'react-select';
 
 import { TableActions } from '../Table';
 
@@ -63,7 +62,7 @@ class SelectButton extends React.Component<PropsType> {
   };
 
   // ------------------------------------------- Render -------------------------------------------
-  render(): React.Element<SelectBase> {
+  render(): React.Element<*> {
     const options = this.getOptions();
 
     return (
