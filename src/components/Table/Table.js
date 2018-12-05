@@ -60,7 +60,7 @@ class Table extends React.Component<PropsType> {
     renderFooter() {
         const { variable, data } = this.props;
 
-        if (!variable || !data) return null;
+        if (!variable || !data.length) return null;
 
         return (
             <div className="footer">Footer goes here, 232 results not shown</div>
