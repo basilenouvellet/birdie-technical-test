@@ -101,16 +101,16 @@ class Table extends React.Component<PropsType, StateType> {
         ) return null;
 
         return (
-            <div
+            <button
                 className="footer"
                 onClick={this.onFooterClick}
             >
                 {
                     shortList
-                        ? `Show ${data.length - 100} more`
+                        ? `Show all rows (${data.length - 100} more)`
                         : 'Hide rows'
                 }
-            </div>
+            </button>
         );
     }
 
