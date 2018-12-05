@@ -26,11 +26,13 @@ db.connect((err) => {
 app.use('/data', function (req, res) {
     const { variable } = req.query;
 
-    const sqlQuery = `SELECT ${variable}, COUNT(${variable}) AS count, AVG(age) AS average_age `
-        + `FROM ${table} `
-        + `GROUP BY ${variable} `
-        + 'ORDER BY average_age DESC '
-        + 'LIMIT 100';
+    const sqlQuery = [
+        `SELECT ${variable}, COUNT(${variable}) AS count, AVG(age) AS average_age`,
+        `FROM ${table}`,
+        `GROUP BY ${variable}`,
+        'ORDER BY average_age DESC',
+        'LIMIT 100',
+    ].join(' ');
 
     db.query(sqlQuery, function (error, results) {
         if (error) throw error;
