@@ -24,10 +24,12 @@ class SelectButton extends React.Component<PropsType> {
     getOptions() {
         const { columns } = this.props;
 
-        return columns.map(column => ({
-            value: column,
-            label: column.toLocaleString(),
-        }));
+        return columns
+            .filter(column => column !== 'age')
+            .map(column => ({
+                value: column,
+                label: column.toLocaleString(),
+            }));
     }
 
     handleChange = (newOption) => {
