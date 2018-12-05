@@ -1,11 +1,17 @@
+// @flow
+
 import Table from './Table';
 import * as TableActions from './TableActions';
-import TableReducer from './TableReducer';
-import TableSaga from './TableSaga';
+import tableReducer from './TableReducer';
+import tableSaga from './TableSaga';
+
+// exporting types
+export * from './TableReducer';
+export * from './TableActions';
 
 export {
   Table as default,
   TableActions,
-  TableReducer,
-  TableSaga,
+  tableReducer,
+  tableSaga,
 };

@@ -9,7 +9,7 @@ type OwnPropsType = {|
 |};
 type PropsType = OwnPropsType;
 
-function Spinner(props: PropsType): React.Element<'div'> {
+function Spinner(props: PropsType): ?React.Element<'div'> {
   const { open } = props;
 
   return !open ? null : (

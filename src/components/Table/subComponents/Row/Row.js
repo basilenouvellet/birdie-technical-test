@@ -23,8 +23,8 @@ function Row(props: PropsType): React.Element<'div'> {
     title: isTitle,
   });
 
-  const style = {
-    backgroundColor: index % 2 ? '#e1e1e1' : null,
+  const style = isTitle ? null : {
+    backgroundColor: parseInt(index, 10) % 2 ? '#e1e1e1' : null, // parseInt to satisfy flow
   };
 
   return (
