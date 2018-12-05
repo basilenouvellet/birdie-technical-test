@@ -19,27 +19,72 @@ type StateType = {||};
 class Table extends React.Component<PropsType, StateType> {
     state = {};
 
-    // ------------------------------------------- Render -------------------------------------------
-    render() {
-        const { variable, changeVariable } = this.props;
+    onButtonClick = () => {
+        const { fetchData } = this.props;
+        fetchData('education');
+    };
+
+    renderButton() {
+        const { variable } = this.props;
 
         return (
-            <div className="table">
-                <button onClick={() => { changeVariable(Math.random()*100); }}>
-                    Change variable
-                </button>
+            <button
+                onClick={this.onButtonClick}
+                style={{
+                    width: '200px',
+                    height: '50px',
+                }}
+            >
                 {variable}
+            </button>
+        );
+    }
+
+    renderRows() {
+        const { variable, data } = this.props;
+
+        return data.map((row, index) => (
+            <div
+                key={row[variable]}
+                style={{
+                    width: '100%',
+                    display: 'flex',
+                    justifyContent: 'space-around',
+                }}
+            >
+                <div>{index}</div>
+                <div>{row[variable]}</div>
+                <div>{row['COUNT(education)']}</div>
+                <div>{row['AVG(age)']}</div>
+            </div>
+        ));
+    }
+
+    // ------------------------------------------- Render ------------------------------------------
+    render() {
+        return (
+            <div className="table">
+                <button onClick={() => this.props.fetchColumns()}>Columns</button>
+                {this.renderButton()}
+                {this.renderRows()}
             </div>
         );
     }
 }
 
 const mapStateToProps = (state: AppStateType): MappedStatePropsType => ({
+    columns: state.columns,
     variable: state.variable,
+    data: state.data,
 });
 
 const mapDispatchToProps = (dispatch: *): MappedDispatchPropsType => ({
-    changeVariable: (variable) => { dispatch(TableActions.changeVariableAction(variable)) },
+    fetchData: (variable) => {
+        dispatch(TableActions.fetchDataAction(variable));
+    },
+    fetchColumns: () => {
+        dispatch(TableActions.fetchColumnsAction());
+    },
 });
 
 export default connect(
