@@ -4,7 +4,6 @@
     grid-template-rows: 2.2em;
     grid-template-areas: 'index variable count average-age';
     align-items: center;
-    text-align: start;
     padding: 0 2em;
 }
 
@@ -14,6 +13,12 @@
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+
+.cell {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: start;
 }
 
 .index {
