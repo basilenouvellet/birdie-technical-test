@@ -20,6 +20,7 @@ type MappedStatePropsType = {|
   variable: TableStateVariableType,
   data: TableStateDataType,
   error: TableStateErrorType,
+  loading: TableStateLoadingType,
 |};
 type OwnPropsType = {||};
 type PropsType = MappedStatePropsType & OwnPropsType;
@@ -35,7 +36,7 @@ class Table extends React.Component<PropsType, StateType> {
 
   componentDidUpdate(prevProps: PropsType) {
     const { variable } = this.props;
-    if (prevProps.variable !== variable) this.variableHasChanged();
+    if (prevProps.variable !== variable) this.resetShortList(); // variable has changed
   }
 
   getCapitalizedVariable(): ?string {
@@ -67,11 +68,9 @@ class Table extends React.Component<PropsType, StateType> {
       : data;
   }
 
-  variableHasChanged() {
+  resetShortList() {
     const { shortList } = this.state;
-
-    // reset shortlist to true
-    if (!shortList) this.setState({ shortList: true });
+    if (!shortList) this.setState({ shortList: true }); // reset shortlist to true
   }
 
   renderColumnsNames(): ?React.Element<Row> {
@@ -132,34 +131,23 @@ class Table extends React.Component<PropsType, StateType> {
     );
   }
 
-  renderSpinner(): React.Element<Spinner> {
-    const { variable, data } = this.props;
-
-    const isOpen = (
-      variable // a variable is selected
-      && !(data && data.length) // and we have no data to show, yet
-    );
-
-    return (
-      <Spinner open={isOpen} />
-    );
-  }
-
   // ------------------------------------------- Render ------------------------------------------
   render(): React.Element<'div'> {
-    const { error } = this.props;
+    const { error, loading } = this.props;
     if (error.data) return <ErrorMessage />;
 
     return (
       <div className="table">
         {this.renderColumnsNames()}
 
-        <div className="rows-container">
-          {this.renderRows()}
-          {this.renderFooter()}
-        </div>
-
-        {this.renderSpinner()}
+        {
+          loading ? <Spinner /> : (
+            <div className="rows-container">
+              {this.renderRows()}
+              {this.renderFooter()}
+            </div>
+          )
+        }
       </div>
     );
   }
@@ -169,6 +157,7 @@ const mapStateToProps = (state: TableStateType): MappedStatePropsType => ({
   variable: state.variable,
   data: state.data,
   error: state.error,
+  loading: state.loading,
 });
 
 export default connect(

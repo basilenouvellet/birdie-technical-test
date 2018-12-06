@@ -10,12 +10,14 @@ export type TableStateErrorType = {|
   columns: boolean,
   data: boolean,
 |};
+export type TableStateLoadingType = boolean;
 
 export type TableStateType = {|
   columns: TableStateColumnsType,
   variable: TableStateVariableType,
   data: TableStateDataType,
   error: TableStateErrorType,
+  loading: TableStateLoadingType,
 |};
 
 const initialState: TableStateType = {
@@ -26,6 +28,7 @@ const initialState: TableStateType = {
     columns: false,
     data: false,
   },
+  loading: false,
 };
 
 const TableReducer = (
@@ -39,6 +42,11 @@ const TableReducer = (
       return {
         ...state,
         variable,
+        error: {
+          columns: false,
+          data: false,
+        },
+        loading: true,
       };
     }
     case types.FETCH_COLUMNS_FAILED: {
@@ -52,6 +60,7 @@ const TableReducer = (
           ...state.error,
           columns: true,
         },
+        loading: false,
       };
     }
     case types.SET_COLUMNS: {
@@ -64,6 +73,7 @@ const TableReducer = (
           ...state.error,
           columns: false,
         },
+        loading: false,
       };
     }
     case types.FETCH_DATA_FAILED: {
@@ -77,6 +87,7 @@ const TableReducer = (
           ...state.error,
           data: true,
         },
+        loading: false,
       };
     }
     case types.SET_DATA: {
@@ -89,12 +100,7 @@ const TableReducer = (
           ...state.error,
           data: false,
         },
-      };
-    }
-    case types.RESET_DATA: {
-      return {
-        ...state,
-        data: [],
+        loading: false,
       };
     }
     default:

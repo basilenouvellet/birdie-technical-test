@@ -15,7 +15,6 @@ export type TableActionsTypesType = {|
   FETCH_DATA: 'table/FETCH_DATA',
   FETCH_DATA_FAILED: 'table/FETCH_DATA_FAILED',
   SET_DATA: 'table/SET_DATA',
-  RESET_DATA: 'table/RESET_DATA',
 |};
 export const types: TableActionsTypesType = {
   SET_VARIABLE: 'table/SET_VARIABLE',
@@ -25,7 +24,6 @@ export const types: TableActionsTypesType = {
   FETCH_DATA: 'table/FETCH_DATA',
   FETCH_DATA_FAILED: 'table/FETCH_DATA_FAILED',
   SET_DATA: 'table/SET_DATA',
-  RESET_DATA: 'table/RESET_DATA',
 };
 
 // set variable action
@@ -138,22 +136,10 @@ export function setDataAction(data: TableStateDataType): SetDataActionType {
   };
 }
 
-// reset data action
-export type ResetDataActionType = {|
-  type: typeof types.RESET_DATA,
-|};
-
-export function resetDataAction(): ResetDataActionType {
-  return {
-    type: types.RESET_DATA,
-  };
-}
-
 // Table Action Type
 export type TableActionType =
   SetVariableActionType
   | FetchColumnsActionType
   | SetColumnsActionType
   | FetchDataActionType
-  | SetDataActionType
-  | ResetDataActionType;
+  | SetDataActionType;

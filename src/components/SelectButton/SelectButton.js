@@ -26,7 +26,6 @@ type MappedDispatchPropsType = {|
   fetchColumns: () => void,
   fetchData: (variable: TableStateVariableType) => void,
   setVariable: (variable: TableStateVariableType) => void,
-  resetData: () => void,
 |};
 type OwnPropsType = {||};
 type PropsType = MappedStatePropsType & MappedDispatchPropsType & OwnPropsType;
@@ -57,14 +56,13 @@ class SelectButton extends React.Component<PropsType> {
 
   handleChange = (newOption) => {
     const {
-      variable, setVariable, resetData, fetchData,
+      variable, setVariable, fetchData,
     } = this.props;
 
     const { value: newValue } = newOption;
 
     if (variable !== newValue) {
       setVariable(newValue);
-      resetData(); // reset data in store since it no longer matches the variable
       fetchData(newValue); // start fetching the data corresponding to the new variable
     }
   };
@@ -103,9 +101,6 @@ const mapDispatchToProps = (dispatch: *): MappedDispatchPropsType => ({
   },
   setVariable: (variable: TableStateVariableType): void => {
     dispatch(TableActions.setVariableAction(variable));
-  },
-  resetData: (): void => {
-    dispatch(TableActions.resetDataAction());
   },
 });
 
