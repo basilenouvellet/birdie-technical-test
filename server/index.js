@@ -9,7 +9,7 @@ const app = express();
 const port = process.env.port || 8080;
 
 // serve static files from the React app
-app.use(express.static(path.join(__dirname, 'build')));
+app.use(express.static(path.join(__dirname, '..', 'build')));
 
 // database
 const dbOptions = {
@@ -31,8 +31,12 @@ db.connect((err) => {
 });
 
 // routes
-app.get('/data', (req, res, next) => {
-  const { variable } = req.query;
+app.get('/data', (req, res) => {
+  const { variable: vari } = req.query;
+
+  // TODO: to remove
+  let variable = vari;
+  if (vari === 'education') variable = 'educcccccc';
 
   if (variable) {
     const sqlQuery = [
@@ -67,7 +71,7 @@ app.get('/columns', (req, res) => {
 // "catchall" handler:
 // for any request that doesn't match one above, send back React's index.html file
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'build/index.html'));
+  res.sendFile(path.join(__dirname, '..', 'build/index.html'));
 });
 
 // launch server
