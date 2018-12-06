@@ -1,11 +1,15 @@
 // @flow
 
 const express = require('express');
+const path = require('path');
 const mysql = require('mysql');
 
 const app = express();
 
 const port = process.env.port || 8080;
+
+// serve static files from the React app
+app.use(express.static(path.join(__dirname, 'build')));
 
 // database
 const dbOptions = {
