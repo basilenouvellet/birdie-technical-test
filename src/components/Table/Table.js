@@ -3,6 +3,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 
+import ErrorBoundary from '../ErrorBoundary';
 import Row from './subComponents/Row';
 import Spinner from './subComponents/Spinner';
 
@@ -18,73 +19,77 @@ type OwnPropsType = {||};
 type PropsType = MappedStatePropsType & OwnPropsType;
 
 type StateType = {|
-    shortList: boolean,
+  shortList: boolean,
 |};
 
 class Table extends React.Component<PropsType, StateType> {
-    state: StateType = {
-      shortList: true,
-    };
+  state: StateType = {
+    shortList: true,
+  };
 
-    componentDidUpdate(prevProps: PropsType) {
-      const { variable } = this.props;
+  componentDidUpdate(prevProps: PropsType) {
+    const { variable } = this.props;
 
-      if (prevProps.variable !== variable) this.variableHasChanged();
-    }
+    if (prevProps.variable !== variable) this.variableHasChanged();
+  }
 
-    getCapitalizedVariable(): ?string {
-      const { variable } = this.props;
+  getCapitalizedVariable(): ?string {
+    const { variable } = this.props;
 
-      if (!variable) return null;
+    if (!variable) return null;
 
-      return variable
-        .split(' ')
-        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-        .join(' ');
-    }
+    return variable
+      .split(' ')
+      .map(word => word.charAt(0)
+        .toUpperCase() + word.slice(1))
+      .join(' ');
+  }
 
-    onFooterClick = (): void => {
-      this.setState((state: StateType) => ({
-        shortList: !state.shortList,
-      }));
-    };
+  onFooterClick = (): void => {
+    this.setState((state: StateType) => ({
+      shortList: !state.shortList,
+    }));
+  };
 
-    getSlicedRows(): TableStateDataType {
-      const { data } = this.props;
-      const { shortList } = this.state;
+  getSlicedRows(): TableStateDataType {
+    const { data } = this.props;
+    const { shortList } = this.state;
 
-      const shouldBeSliced = shortList && data.length >= 100;
+    const shouldBeSliced = shortList && data.length >= 100;
 
-      return data.slice(0, shouldBeSliced ? 100 : data.length);
-    }
+    return shouldBeSliced
+      ? data.slice(0, 100)
+      : data;
+  }
 
-    variableHasChanged() {
-      const { shortList } = this.state;
+  variableHasChanged() {
+    const { shortList } = this.state;
 
-      // reset shortlist to true
-      if (!shortList) this.setState({ shortList: true });
-    }
+    // reset shortlist to true
+    if (!shortList) this.setState({ shortList: true });
+  }
 
-    renderColumnsNames(): ?React.Element<Row> {
-      const capitalizedVariable = this.getCapitalizedVariable();
+  renderColumnsNames(): ?React.Element<Row> {
+    const capitalizedVariable = this.getCapitalizedVariable();
 
-      if (!capitalizedVariable) return null;
+    if (!capitalizedVariable) return null;
 
-      return (
-        <Row
-          index="#"
-          variable={capitalizedVariable}
-          count="Count"
-          averageAge="Average Age"
-          isTitle
-        />
-      );
-    }
+    return (
+      <Row
+        index="#"
+        variable={capitalizedVariable}
+        count="Count"
+        averageAge="Average Age"
+        isTitle
+      />
+    );
+  }
 
-    renderRows(): Array<React.Element<Row>> {
-      const { variable } = this.props;
+  renderRows(): Array<React.Element<Row>> {
+    const { variable } = this.props;
 
-      return this.getSlicedRows().map((row, index) => (
+    return this.getSlicedRows()
+      .map((row, index) => (
         <Row
           key={`${row[variable]}${row.count}${row.averageAge}`}
           index={index}
@@ -93,49 +98,52 @@ class Table extends React.Component<PropsType, StateType> {
           averageAge={row.average_age}
         />
       ));
+  }
+
+  renderFooter(): ?React.Element<'button'> {
+    const { variable, data } = this.props;
+    const { shortList } = this.state;
+
+    if (
+      !variable // no variable selected
+      || !data.length // or no data to show
+      || data.length <= 100 // or less than 100 rows
+    ) {
+      return null;
     }
 
-    renderFooter(): ?React.Element<'button'> {
-      const { variable, data } = this.props;
-      const { shortList } = this.state;
+    const footerTitle = shortList
+      ? `Show all rows (${data.length - 100} more)`
+      : 'Hide rows';
 
-      if (
-        !variable // no variable selected
-          || !data.length // or no data to show
-          || data.length <= 100 // or less than 100 rows
-      ) return null;
+    return (
+      <button
+        className="footer"
+        type="button"
+        onClick={this.onFooterClick}
+      >
+        {footerTitle}
+      </button>
+    );
+  }
 
-      return (
-        <button
-          className="footer"
-          type="button"
-          onClick={this.onFooterClick}
-        >
-          {
-                    shortList
-                      ? `Show all rows (${data.length - 100} more)`
-                      : 'Hide rows'
-                }
-        </button>
-      );
-    }
+  renderSpinner(): React.Element<Spinner> {
+    const { variable, data } = this.props;
 
-    renderSpinner(): React.Element<Spinner> {
-      const { variable, data } = this.props;
+    const isOpen = (
+      variable // a variable is selected
+      && !(data && data.length) // and we have no data to show, yet
+    );
 
-      const isOpen = (
-        variable // a variable is selected
-          && !(data && data.length) // and we have no data to show, yet
-      );
+    return (
+      <Spinner open={isOpen} />
+    );
+  }
 
-      return (
-        <Spinner open={isOpen} />
-      );
-    }
-
-    // ------------------------------------------- Render ------------------------------------------
-    render(): React.Element<'div'> {
-      return (
+  // ------------------------------------------- Render ------------------------------------------
+  render(): React.Element<'div'> {
+    return (
+      <ErrorBoundary>
         <div className="table">
           {this.renderColumnsNames()}
 
@@ -146,8 +154,9 @@ class Table extends React.Component<PropsType, StateType> {
 
           {this.renderSpinner()}
         </div>
-      );
-    }
+      </ErrorBoundary>
+    );
+  }
 }
 
 const mapStateToProps = (state: TableStateType): MappedStatePropsType => ({

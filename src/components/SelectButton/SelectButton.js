@@ -4,6 +4,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import Select from 'react-select';
 
+import ErrorBoundary from '../ErrorBoundary';
 import { TableActions } from '../Table';
 
 import './SelectButton.css';
@@ -66,13 +67,15 @@ class SelectButton extends React.Component<PropsType> {
     const options = this.getOptions();
 
     return (
-      <Select
-        className="select-button"
-        styles={selectStyles}
-        placeholder="Select a variable..."
-        onChange={this.handleChange}
-        options={options}
-      />
+      <ErrorBoundary>
+        <Select
+          className="select-button"
+          styles={selectStyles}
+          placeholder="Select a variable..."
+          onChange={this.handleChange}
+          options={options}
+        />
+      </ErrorBoundary>
     );
   }
 }
