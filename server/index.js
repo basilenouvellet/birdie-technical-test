@@ -41,7 +41,7 @@ app.get('/data', (req, res, next) => {
       `SELECT \`${variable}\`, COUNT(\`${variable}\`) AS count, AVG(age) AS average_age`,
       `FROM ${table}`,
       `GROUP BY \`${variable}\``,
-      'ORDER BY average_age DESC',
+      'ORDER BY count DESC',
     ].join(' ');
 
     console.log(`New SQL query: SELECT \`${variable}\` [...]`);
