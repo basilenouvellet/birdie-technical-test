@@ -8,8 +8,17 @@ import { types } from './TableActions';
 import { TableActions } from './index';
 import type { FetchDataActionType } from './index';
 
+function handleErrors(res) {
+  if (!res.ok) {
+    return res.json().then((jsonErr) => { throw jsonErr; });
+  }
+
+  return res;
+}
+
 function fetchApi(url) {
   return fetch(url)
+    .then(handleErrors)
     .then(res => res.json())
     .then(json => ({ response: json }))
     .catch(error => ({ error }));
