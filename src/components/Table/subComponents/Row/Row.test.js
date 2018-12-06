@@ -18,4 +18,18 @@ describe('Row component', () => {
 
     shallow(row);
   });
+
+  it('should match snapshot', () => {
+    const row = (
+      <Row
+        index={1000}
+        variable="education"
+        count={1000}
+        averageAge={1000}
+      />
+    );
+
+    const wrapper = shallow(row);
+    expect(wrapper).toMatchSnapshot();
+  });
 });
