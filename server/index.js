@@ -34,16 +34,12 @@ app.get('/data', (req, res, next) => {
       `FROM ${table}`,
       `GROUP BY \`${variable}\``,
       'ORDER BY average_age DESC',
-      // 'LIMIT 100',
     ].join(' ');
 
-    console.log(sqlQuery);
+    console.log('SELECT', variable);
 
     db.query(sqlQuery, (error, results) => {
-      if (error) {
-        console.error(error);
-        next();
-      }
+      if (error) throw error;
       res.send(results);
     });
   } else {
@@ -52,7 +48,7 @@ app.get('/data', (req, res, next) => {
   }
 });
 
-app.use('/columns', (req, res) => {
+app.get('/columns', (req, res) => {
   const sqlQuery = `SHOW columns from ${table}`;
 
   db.query(sqlQuery, (error, results) => {
@@ -61,6 +57,13 @@ app.use('/columns', (req, res) => {
   });
 });
 
+// error handler
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send('Something broke!');
+});
+
+// launch server
 app.listen(port, () => {
   console.log(`Server running on port ${port}!`);
 });
