@@ -4,6 +4,7 @@
   "private": false,
   "dependencies": {
     "@babel/core": "7.1.0",
+    "@babel/plugin-syntax-jsx": "^7.2.0",
     "@svgr/webpack": "2.4.1",
     "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "^10.0.1",
@@ -62,7 +63,7 @@
   },
   "scripts": {
     "lint": "eslint .",
-    "startServer": "node server/",
+    "startServer": "nodemon server/",
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js"
@@ -124,7 +125,9 @@
     ]
   },
   "devDependencies": {
+    "@types/react": "^16.7.13",
     "eslint-config-airbnb": "^17.1.0",
-    "flow-bin": "^0.87.0"
+    "flow-bin": "^0.87.0",
+    "nodemon": "^1.18.7"
   }
 }
