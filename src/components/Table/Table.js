@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 
 import Row from './subComponents/Row';
 import Spinner from './subComponents/Spinner';
+import ErrorMessage from '../ErrorMessage';
 
 import './Table.css';
 
@@ -147,7 +148,7 @@ class Table extends React.Component<PropsType, StateType> {
   // ------------------------------------------- Render ------------------------------------------
   render(): React.Element<'div'> {
     const { error } = this.props;
-    if (error.data) throw new Error('Data error');
+    if (error.data) return <ErrorMessage />;
 
     return (
       <div className="table">

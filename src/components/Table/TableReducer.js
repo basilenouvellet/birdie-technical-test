@@ -60,6 +60,10 @@ const TableReducer = (
       return {
         ...state,
         columns,
+        error: {
+          ...state.error,
+          columns: false,
+        },
       };
     }
     case types.FETCH_DATA_FAILED: {
@@ -81,6 +85,10 @@ const TableReducer = (
       return {
         ...state,
         data,
+        error: {
+          ...state.error,
+          data: false,
+        },
       };
     }
     case types.RESET_DATA: {

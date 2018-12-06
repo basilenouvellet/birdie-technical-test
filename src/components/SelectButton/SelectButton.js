@@ -4,6 +4,8 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import Select from 'react-select';
 
+import ErrorMessage from '../ErrorMessage';
+
 import { TableActions } from '../Table';
 
 import './SelectButton.css';
@@ -70,7 +72,7 @@ class SelectButton extends React.Component<PropsType> {
   // ------------------------------------------- Render -------------------------------------------
   render(): React.Element<*> {
     const { error } = this.props;
-    if (error.columns) throw new Error('Columns error');
+    if (error.columns) return <ErrorMessage />;
 
     const options = this.getOptions();
 
