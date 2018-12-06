@@ -31,7 +31,7 @@ db.connect((err) => {
 });
 
 // routes
-app.get('/data', (req, res) => {
+app.get('/data', (req, res, next) => {
   const { variable: vari } = req.query;
 
   // TODO: to remove
@@ -48,24 +48,32 @@ app.get('/data', (req, res) => {
 
     console.log(`New SQL query: SELECT \`${variable}\` [...]`);
 
-    db.query(sqlQuery, (error, results) => {
-      if (error) throw error;
-      res.send(results);
-    });
+    try {
+      db.query(sqlQuery, (error, results) => {
+        if (error) throw error;
+        res.send(results);
+      });
+    } catch (e) {
+      next(e);
+    }
   } else {
     throw new Error(`Empty variable in SQL request: ${variable}`);
   }
 });
 
-app.get('/columns', (req, res) => {
+app.get('/columns', (req, res, next) => {
   const sqlQuery = `SHOW columns from \`${table}\``;
 
   console.log(`New SQL query: ${sqlQuery}`);
 
-  db.query(sqlQuery, (error, results) => {
-    if (error) throw error;
-    res.send(results);
-  });
+  try {
+    db.query(sqlQuery, (error, results) => {
+      if (error) throw error;
+      res.send(results);
+    });
+  } catch (e) {
+    next(e);
+  }
 });
 
 // "catchall" handler:
