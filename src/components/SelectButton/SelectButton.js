@@ -30,6 +30,7 @@ type MappedDispatchPropsType = {|
 type OwnPropsType = {||};
 type PropsType = MappedStatePropsType & MappedDispatchPropsType & OwnPropsType;
 
+// overwrite some of the default styles of React Select
 const selectStyles = {
   option: provided => ({
     ...provided,
@@ -37,22 +38,23 @@ const selectStyles = {
   }),
 };
 
-class SelectButton extends React.Component<PropsType> {
+// export unconnected component for test purposes with Jest
+export class SelectButtonUnconnected extends React.Component<PropsType> {
   componentDidMount() {
     const { fetchColumns } = this.props;
-    fetchColumns();
+    fetchColumns(); // fetch columns names in did mount
   }
 
   getOptions() {
     const { columns } = this.props;
 
     return columns
-      .filter(column => column !== 'age')
+      // .filter(column => column !== 'age')
       .concat('THIS WILL FAIL') // add non existing column name to test error handling
-      .sort()
-      .map(column => ({
+      .sort() // sort alphabetically
+      .map(column => ({ // map to React Select options structure
         value: column,
-        label: column.toLocaleString(),
+        label: column.toLocaleString(), // how it is going to be displayed to the user
       }));
   }
 
@@ -64,7 +66,7 @@ class SelectButton extends React.Component<PropsType> {
     const { value: newValue } = newOption;
 
     if (variable !== newValue) {
-      setVariable(newValue);
+      setVariable(newValue); // set new variable value in the redux store
       fetchData(newValue); // start fetching the data corresponding to the new variable
     }
   };
@@ -109,4 +111,4 @@ const mapDispatchToProps = (dispatch: *): MappedDispatchPropsType => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(SelectButton);
+)(SelectButtonUnconnected);

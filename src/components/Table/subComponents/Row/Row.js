@@ -6,11 +6,11 @@ import classnames from 'classnames';
 import './Row.css';
 
 type PropsType = {|
-    index: number | string,
-    variable: string,
-    count: string,
-    averageAge: number | string,
-    isTitle?: boolean,
+  index: number | string,
+  variable: string,
+  count: string,
+  averageAge: number | string,
+  isTitle?: boolean,
 |};
 
 function Row(props: PropsType): React.Element<'div'> {
@@ -24,7 +24,9 @@ function Row(props: PropsType): React.Element<'div'> {
   });
 
   const style = isTitle ? null : {
-    backgroundColor: parseInt(index, 10) % 2 ? 'rgba(38, 132, 255, .2)' : null, // parseInt to satisfy flow
+    // change background color based on index
+    // parseInt to satisfy flow
+    backgroundColor: parseInt(index, 10) % 2 ? 'rgba(38, 132, 255, .2)' : null,
   };
 
   return (

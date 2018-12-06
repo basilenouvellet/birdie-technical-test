@@ -18,10 +18,13 @@ function handleErrors(res) {
 
 function fetchApi(url) {
   return fetch(url)
+    // since fetch will succeed even if http status code is wrong,
+    // we need to check the response ourselves
+    // fetch will fail only when there is no network connection or access denied
     .then(handleErrors)
     .then(res => res.json())
-    .then(json => ({ response: json }))
-    .catch(error => ({ error }));
+    .then(json => ({ response: json })) // return an object with response key
+    .catch(error => ({ error })); // return an object with error key
 }
 
 function* fetchDataSaga(action: FetchDataActionType): * {
@@ -29,7 +32,7 @@ function* fetchDataSaga(action: FetchDataActionType): * {
 
   if (variable) {
     const url = `/data?variable=${variable}`;
-    const { response, error } = yield call(fetchApi, url);
+    const { response, error } = yield call(fetchApi, url); // either response or error is undefined
 
     if (response) { // success
       yield put(TableActions.setDataAction(response));
@@ -43,7 +46,7 @@ function* fetchColumnsSaga(): * {
   const { response, error } = yield call(fetchApi, '/columns');
 
   if (response && response.length) { // success
-    const columns = response.map(rawColumn => rawColumn.Field);
+    const columns = response.map(rawColumn => rawColumn.Field); // take map only columns names
     yield put(TableActions.setColumnsAction(columns));
   } else { // error
     yield put(TableActions.fetchColumnsFailedAction(error));

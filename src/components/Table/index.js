@@ -5,10 +5,11 @@ import * as TableActions from './TableActions';
 import tableReducer from './TableReducer';
 import tableSaga from './TableSaga';
 
-// exporting types
+// export types
 export * from './TableReducer';
 export * from './TableActions';
 
+// export Component, Actions, Reducer and Saga
 export {
   Table as default,
   TableActions,
