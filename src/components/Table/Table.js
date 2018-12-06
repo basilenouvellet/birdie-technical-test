@@ -29,7 +29,8 @@ type StateType = {|
   shortList: boolean,
 |};
 
-class Table extends React.Component<PropsType, StateType> {
+// export unconnected component for test purposes with Jest
+export class TableUnconnected extends React.Component<PropsType, StateType> {
   state: StateType = {
     shortList: true,
   };
@@ -163,4 +164,4 @@ const mapStateToProps = (state: TableStateType): MappedStatePropsType => ({
 export default connect(
   mapStateToProps,
   null,
-)(Table);
+)(TableUnconnected);

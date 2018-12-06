@@ -24,10 +24,10 @@ ShallowWrapper {
           Birdie Technical Test - Basile NOUVELLET
         </header>,
         <ErrorBoundary>
-          <Connect(SelectButton) />
+          <Connect(SelectButtonUnconnected) />
         </ErrorBoundary>,
         <ErrorBoundary>
-          <Connect(Table) />
+          <Connect(TableUnconnected) />
         </ErrorBoundary>,
       ],
       "className": "App",
@@ -51,7 +51,7 @@ ShallowWrapper {
         "key": undefined,
         "nodeType": "class",
         "props": Object {
-          "children": <Connect(SelectButton) />,
+          "children": <Connect(SelectButtonUnconnected) />,
         },
         "ref": null,
         "rendered": Object {
@@ -70,7 +70,7 @@ ShallowWrapper {
         "key": undefined,
         "nodeType": "class",
         "props": Object {
-          "children": <Connect(Table) />,
+          "children": <Connect(TableUnconnected) />,
         },
         "ref": null,
         "rendered": Object {
@@ -100,10 +100,10 @@ ShallowWrapper {
             Birdie Technical Test - Basile NOUVELLET
           </header>,
           <ErrorBoundary>
-            <Connect(SelectButton) />
+            <Connect(SelectButtonUnconnected) />
           </ErrorBoundary>,
           <ErrorBoundary>
-            <Connect(Table) />
+            <Connect(TableUnconnected) />
           </ErrorBoundary>,
         ],
         "className": "App",
@@ -127,7 +127,7 @@ ShallowWrapper {
           "key": undefined,
           "nodeType": "class",
           "props": Object {
-            "children": <Connect(SelectButton) />,
+            "children": <Connect(SelectButtonUnconnected) />,
           },
           "ref": null,
           "rendered": Object {
@@ -146,7 +146,7 @@ ShallowWrapper {
           "key": undefined,
           "nodeType": "class",
           "props": Object {
-            "children": <Connect(Table) />,
+            "children": <Connect(TableUnconnected) />,
           },
           "ref": null,
           "rendered": Object {

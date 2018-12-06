@@ -37,7 +37,8 @@ const selectStyles = {
   }),
 };
 
-class SelectButton extends React.Component<PropsType> {
+// export unconnected component for test purposes with Jest
+export class SelectButtonUnconnected extends React.Component<PropsType> {
   componentDidMount() {
     const { fetchColumns } = this.props;
     fetchColumns();
@@ -109,4 +110,4 @@ const mapDispatchToProps = (dispatch: *): MappedDispatchPropsType => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(SelectButton);
+)(SelectButtonUnconnected);

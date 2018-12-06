@@ -1,0 +1,286 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Table component should match snapshot 1`] = `
+ShallowWrapper {
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <TableUnconnected
+    data={
+      Array [
+        Object {
+          "average_age": 50,
+          "column1": "Male",
+          "count": 100,
+        },
+        Object {
+          "average_age": 100,
+          "column2": "Female",
+          "count": 1000,
+        },
+      ]
+    }
+    error={
+      Object {
+        "column": false,
+        "data": false,
+      }
+    }
+    loading={false}
+    variable="column2"
+  />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateError": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "host",
+    "props": Object {
+      "children": Array [
+        <Row
+          averageAge="Average Age"
+          count="Count"
+          index="#"
+          isTitle={true}
+          variable="Column2"
+        />,
+        <div
+          className="rows-container"
+        >
+          <Row
+            averageAge={50}
+            count={100}
+            index={0}
+            isTitle={false}
+          />
+          <Row
+            averageAge={100}
+            count={1000}
+            index={1}
+            isTitle={false}
+            variable="Female"
+          />
+        </div>,
+      ],
+      "className": "table",
+    },
+    "ref": null,
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "function",
+        "props": Object {
+          "averageAge": "Average Age",
+          "count": "Count",
+          "index": "#",
+          "isTitle": true,
+          "variable": "Column2",
+        },
+        "ref": null,
+        "rendered": null,
+        "type": [Function],
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": Array [
+            Array [
+              <Row
+                averageAge={50}
+                count={100}
+                index={0}
+                isTitle={false}
+              />,
+              <Row
+                averageAge={100}
+                count={1000}
+                index={1}
+                isTitle={false}
+                variable="Female"
+              />,
+            ],
+            null,
+          ],
+          "className": "rows-container",
+        },
+        "ref": null,
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "key": "undefined100undefined",
+            "nodeType": "function",
+            "props": Object {
+              "averageAge": 50,
+              "count": 100,
+              "index": 0,
+              "isTitle": false,
+              "variable": undefined,
+            },
+            "ref": null,
+            "rendered": null,
+            "type": [Function],
+          },
+          Object {
+            "instance": null,
+            "key": "Female1000undefined",
+            "nodeType": "function",
+            "props": Object {
+              "averageAge": 100,
+              "count": 1000,
+              "index": 1,
+              "isTitle": false,
+              "variable": "Female",
+            },
+            "ref": null,
+            "rendered": null,
+            "type": [Function],
+          },
+          null,
+        ],
+        "type": "div",
+      },
+    ],
+    "type": "div",
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": Array [
+          <Row
+            averageAge="Average Age"
+            count="Count"
+            index="#"
+            isTitle={true}
+            variable="Column2"
+          />,
+          <div
+            className="rows-container"
+          >
+            <Row
+              averageAge={50}
+              count={100}
+              index={0}
+              isTitle={false}
+            />
+            <Row
+              averageAge={100}
+              count={1000}
+              index={1}
+              isTitle={false}
+              variable="Female"
+            />
+          </div>,
+        ],
+        "className": "table",
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "function",
+          "props": Object {
+            "averageAge": "Average Age",
+            "count": "Count",
+            "index": "#",
+            "isTitle": true,
+            "variable": "Column2",
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": Array [
+              Array [
+                <Row
+                  averageAge={50}
+                  count={100}
+                  index={0}
+                  isTitle={false}
+                />,
+                <Row
+                  averageAge={100}
+                  count={1000}
+                  index={1}
+                  isTitle={false}
+                  variable="Female"
+                />,
+              ],
+              null,
+            ],
+            "className": "rows-container",
+          },
+          "ref": null,
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": "undefined100undefined",
+              "nodeType": "function",
+              "props": Object {
+                "averageAge": 50,
+                "count": 100,
+                "index": 0,
+                "isTitle": false,
+                "variable": undefined,
+              },
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": "Female1000undefined",
+              "nodeType": "function",
+              "props": Object {
+                "averageAge": 100,
+                "count": 1000,
+                "index": 1,
+                "isTitle": false,
+                "variable": "Female",
+              },
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
+            null,
+          ],
+          "type": "div",
+        },
+      ],
+      "type": "div",
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+        "lifecycles": Object {
+          "componentDidUpdate": Object {
+            "onSetState": true,
+          },
+          "getDerivedStateFromProps": true,
+          "getSnapshotBeforeUpdate": true,
+          "setState": Object {
+            "skipsComponentDidUpdateOnNullish": true,
+          },
+        },
+      },
+    },
+  },
+}
+`;
