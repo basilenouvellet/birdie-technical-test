@@ -1,3 +1,23 @@
+# Birdie - Technical Test
+This is my project as a technical test for an internship at [Birdie](https://birdie.care):
+a very simple data dashboard, fetching a mySQL database.
+
+It is available on Heroku: https://birdie-technical-test.herokuapp.com/
+
+>Please be patient during first launch of the app, as I'm using the free plan of Heroku it can take a few seconds...
+
+Enjoy!
+
+## Development instruction
+- Clone the project.
+- Run `yarn` to install dependencies.
+- Run `yarn run startServer` to start the *server*
+(you may prefer `node server/` to benefit from hot reloading and auto restart while developing).
+- In **another console**, run `yarn run start` to start the *app*.
+- Open **http://localhost:3000/** in your browser.
+
+---
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
