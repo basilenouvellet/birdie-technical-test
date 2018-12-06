@@ -32,7 +32,7 @@ db.connect((err) => {
 });
 
 // routes
-app.get('/data', (req, res, next) => {
+app.get('/database/data', (req, res, next) => {
   const { variable } = req.query;
 
   if (variable) {
@@ -60,7 +60,7 @@ app.get('/data', (req, res, next) => {
   }
 });
 
-app.get('/columns', (req, res, next) => {
+app.get('/database/columns', (req, res, next) => {
   // set query
   const sqlQuery = `SHOW columns from \`${table}\``;
 

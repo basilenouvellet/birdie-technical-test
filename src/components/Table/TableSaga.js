@@ -31,7 +31,7 @@ function* fetchDataSaga(action: FetchDataActionType): * {
   const { variable } = action.payload;
 
   if (variable) {
-    const url = `/data?variable=${variable}`;
+    const url = `/database/data?variable=${variable}`;
     const { response, error } = yield call(fetchApi, url); // either response or error is undefined
 
     if (response) { // success
@@ -43,7 +43,7 @@ function* fetchDataSaga(action: FetchDataActionType): * {
 }
 
 function* fetchColumnsSaga(): * {
-  const { response, error } = yield call(fetchApi, '/columns');
+  const { response, error } = yield call(fetchApi, '/database/columns');
 
   if (response && response.length) { // success
     const columns = response.map(rawColumn => rawColumn.Field); // take map only columns names
