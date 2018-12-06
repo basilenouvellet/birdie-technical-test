@@ -14,6 +14,7 @@ import type {
   TableStateVariableType,
   TableStateDataType,
   TableStateErrorType,
+  TableStateLoadingType,
 } from './index';
 
 type MappedStatePropsType = {|
@@ -26,7 +27,7 @@ type OwnPropsType = {||};
 type PropsType = MappedStatePropsType & OwnPropsType;
 
 type StateType = {|
-  shortList: boolean,
+  shortList: boolean, // do we display only the first 100 rows or not
 |};
 
 // export unconnected component for test purposes with Jest
@@ -48,11 +49,12 @@ export class TableUnconnected extends React.Component<PropsType, StateType> {
     return variable
       .split(' ')
       .map(word => word.charAt(0)
-        .toUpperCase() + word.slice(1))
+        .toUpperCase() + word.slice(1)) // capitalize first letter of each word
       .join(' ');
   }
 
   onFooterClick = (): void => {
+    // toggle shortlist
     this.setState((state: StateType) => ({
       shortList: !state.shortList,
     }));
@@ -62,6 +64,9 @@ export class TableUnconnected extends React.Component<PropsType, StateType> {
     const { data } = this.props;
     const { shortList } = this.state;
 
+    // we take only the first 100 rows if
+    // - shortlist is true and
+    // - if there are more than 100 rows to display
     const shouldBeSliced = shortList && data.length >= 100;
 
     return shouldBeSliced
@@ -71,14 +76,16 @@ export class TableUnconnected extends React.Component<PropsType, StateType> {
 
   resetShortList() {
     const { shortList } = this.state;
-    if (!shortList) this.setState({ shortList: true }); // reset shortlist to true
+    // reset shortlist to true (its default value)
+    if (!shortList) this.setState({ shortList: true });
   }
 
   renderColumnsNames(): ?React.Element<Row> {
     const capitalizedVariable = this.getCapitalizedVariable();
 
-    if (!capitalizedVariable) return null;
+    if (!capitalizedVariable) return null; // no variable selected
 
+    // return Title Row
     return (
       <Row
         index="#"
@@ -93,9 +100,12 @@ export class TableUnconnected extends React.Component<PropsType, StateType> {
   renderRows(): Array<React.Element<Row>> {
     const { variable } = this.props;
 
+    // map rows from data into an array of Row components
     return this.getSlicedRows()
       .map((row, index) => (
+        // pass row data to Row component
         <Row
+          // try making 'key' unique without using 'index'
           key={`${row[variable]}${row.count}${row.averageAge}`}
           index={index}
           variable={row[variable]}
@@ -114,12 +124,12 @@ export class TableUnconnected extends React.Component<PropsType, StateType> {
       || !data.length // or no data to show
       || data.length <= 100 // or less than 100 rows
     ) {
-      return null;
+      return null; // do not display footer
     }
 
     const footerTitle = shortList
-      ? `Show all rows (${data.length - 100} more)`
-      : 'Hide rows';
+      ? `Show all rows (${data.length - 100} more)` // only the first 100 rows are displayed
+      : 'Hide rows'; // all rows are displayed
 
     return (
       <button
@@ -135,7 +145,7 @@ export class TableUnconnected extends React.Component<PropsType, StateType> {
   // ------------------------------------------- Render ------------------------------------------
   render(): React.Element<'div'> {
     const { error, loading } = this.props;
-    if (error.data) return <ErrorMessage />;
+    if (error.data) return <ErrorMessage />; // handle error
 
     return (
       <div className="table">

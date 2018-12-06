@@ -3,6 +3,7 @@
 import { types } from './TableActions';
 import type { TableActionType } from './TableActions';
 
+// objects type in Table State
 export type TableStateColumnsType = Array<string>;
 export type TableStateVariableType = ?string;
 export type TableStateDataType = Array<Object>;
@@ -12,6 +13,7 @@ export type TableStateErrorType = {|
 |};
 export type TableStateLoadingType = boolean;
 
+// Table State type
 export type TableStateType = {|
   columns: TableStateColumnsType,
   variable: TableStateVariableType,
@@ -20,6 +22,7 @@ export type TableStateType = {|
   loading: TableStateLoadingType,
 |};
 
+// initial Table State
 const initialState: TableStateType = {
   columns: [],
   variable: null,
@@ -31,6 +34,7 @@ const initialState: TableStateType = {
   loading: false,
 };
 
+// Table Reducer
 const TableReducer = (
   state: TableStateType = initialState,
   action: TableActionType,
@@ -39,6 +43,8 @@ const TableReducer = (
     case types.SET_VARIABLE: {
       const { variable } = action.payload;
 
+      // variable has been set
+      // reset error and set loading to true
       return {
         ...state,
         variable,
@@ -54,6 +60,8 @@ const TableReducer = (
 
       console.error('Error while fetching columns\n', error);
 
+      // fetch columns failed
+      // reset loading and set columns error to true
       return {
         ...state,
         error: {
@@ -66,6 +74,8 @@ const TableReducer = (
     case types.SET_COLUMNS: {
       const { columns } = action.payload;
 
+      // fetch columns succeeded
+      // reset loading and columns error
       return {
         ...state,
         columns,
@@ -81,6 +91,8 @@ const TableReducer = (
 
       console.error(`Error while fetching data with variable '${variable}'\n`, error);
 
+      // fetch data failed
+      // reset loading and set data error to true
       return {
         ...state,
         error: {
@@ -93,6 +105,8 @@ const TableReducer = (
     case types.SET_DATA: {
       const { data } = action.payload;
 
+      // fetch data succeeded
+      // reset loading and data error
       return {
         ...state,
         data,
