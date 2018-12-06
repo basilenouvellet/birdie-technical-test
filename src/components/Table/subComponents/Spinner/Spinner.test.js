@@ -1,15 +1,15 @@
-import React from 'react';
+import * as React from 'react';
 import { shallow } from 'enzyme';
 
-import App from './App';
+import Spinner from './Spinner';
 
-describe('App component', () => {
+describe('Spinner component', () => {
   it('should shallow render without crashing', () => {
-    shallow(<App />);
+    shallow(<Spinner />);
   });
 
   it('should match snapshot', () => {
-    const wrapper = shallow(<App />);
+    const wrapper = shallow(<Spinner />);
     expect(wrapper).toMatchSnapshot();
   });
 });

@@ -1,0 +1,146 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SelectButton component should match snapshot 1`] = `
+ShallowWrapper {
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <SelectButtonUnconnected
+    columns={
+      Array [
+        "column1",
+        "column2",
+        "column3",
+      ]
+    }
+    error={
+      Object {
+        "column": false,
+        "data": false,
+      }
+    }
+    fetchColumns={
+      [MockFunction] {
+        "calls": Array [
+          Array [],
+          Array [],
+        ],
+        "results": Array [
+          Object {
+            "isThrow": false,
+            "value": undefined,
+          },
+          Object {
+            "isThrow": false,
+            "value": undefined,
+          },
+        ],
+      }
+    }
+    fetchData={[MockFunction]}
+    setVariable={[MockFunction]}
+    variable="column2"
+  />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateError": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "class",
+    "props": Object {
+      "className": "select-button",
+      "defaultInputValue": "",
+      "defaultMenuIsOpen": false,
+      "defaultValue": null,
+      "onChange": [Function],
+      "options": Array [
+        Object {
+          "label": "THIS WILL FAIL",
+          "value": "THIS WILL FAIL",
+        },
+        Object {
+          "label": "column1",
+          "value": "column1",
+        },
+        Object {
+          "label": "column2",
+          "value": "column2",
+        },
+        Object {
+          "label": "column3",
+          "value": "column3",
+        },
+      ],
+      "placeholder": "Select a variable...",
+      "styles": Object {
+        "option": [Function],
+      },
+      "theme": [Function],
+    },
+    "ref": null,
+    "rendered": null,
+    "type": [Function],
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "class",
+      "props": Object {
+        "className": "select-button",
+        "defaultInputValue": "",
+        "defaultMenuIsOpen": false,
+        "defaultValue": null,
+        "onChange": [Function],
+        "options": Array [
+          Object {
+            "label": "THIS WILL FAIL",
+            "value": "THIS WILL FAIL",
+          },
+          Object {
+            "label": "column1",
+            "value": "column1",
+          },
+          Object {
+            "label": "column2",
+            "value": "column2",
+          },
+          Object {
+            "label": "column3",
+            "value": "column3",
+          },
+        ],
+        "placeholder": "Select a variable...",
+        "styles": Object {
+          "option": [Function],
+        },
+        "theme": [Function],
+      },
+      "ref": null,
+      "rendered": null,
+      "type": [Function],
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+        "lifecycles": Object {
+          "componentDidUpdate": Object {
+            "onSetState": true,
+          },
+          "getDerivedStateFromProps": true,
+          "getSnapshotBeforeUpdate": true,
+          "setState": Object {
+            "skipsComponentDidUpdateOnNullish": true,
+          },
+        },
+      },
+    },
+  },
+}
+`;

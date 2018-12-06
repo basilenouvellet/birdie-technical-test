@@ -1,0 +1,14 @@
+[ignore]
+<PROJECT_ROOT>/build/.*
+.*\.test\.js
+.*/__snapshots__/.*
+
+[include]
+
+[libs]
+
+[lints]
+
+[options]
+
+[strict]
