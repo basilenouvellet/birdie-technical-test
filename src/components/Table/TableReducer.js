@@ -89,7 +89,7 @@ const TableReducer = (
     case types.FETCH_DATA_FAILED: {
       const { error, variable } = action;
 
-      console.error(`Error while fetching data with variable '${variable}'\n`, error);
+      console.error(`Error while fetching data with variable '${variable || 'null'}'\n`, error);
 
       // fetch data failed
       // reset loading and set data error to true

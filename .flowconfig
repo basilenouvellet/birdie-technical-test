@@ -1,5 +1,7 @@
 [ignore]
-node_modules
+<PROJECT_ROOT>/build/.*
+.*\.test\.js
+.*/__snapshots__/.*
 
 [include]
 

@@ -61,16 +61,15 @@ export class SelectButtonUnconnected extends React.Component<PropsType> {
     const { columns } = this.props;
 
     return columns
-      // .filter(column => column !== 'age')
       .concat('THIS WILL FAIL') // add non existing column name to test error handling
       .sort() // sort alphabetically
-      .map(column => ({ // map to React Select options structure
+      .map<*>(column => ({ // map to React Select options structure
         value: column,
         label: column.toLocaleString(), // how it is going to be displayed to the user
       }));
   }
 
-  handleChange = (newOption) => {
+  handleChange = (newOption: *) => {
     const {
       variable, setVariable, fetchData,
     } = this.props;
@@ -84,7 +83,7 @@ export class SelectButtonUnconnected extends React.Component<PropsType> {
   };
 
   // ------------------------------------------- Render -------------------------------------------
-  render(): React.Element<*> {
+  render(): React.Element<typeof Select | typeof ErrorMessage> {
     const { error } = this.props;
     if (error.columns) return <ErrorMessage />;
 

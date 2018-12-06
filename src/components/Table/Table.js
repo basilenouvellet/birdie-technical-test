@@ -144,7 +144,7 @@ export class TableUnconnected extends React.Component<PropsType, StateType> {
   }
 
   // ------------------------------------------- Render ------------------------------------------
-  render(): React.Element<'div'> {
+  render(): React.Element<'div' | typeof ErrorMessage> {
     const { error, loading } = this.props;
     if (error.data) return <ErrorMessage />; // handle error
 
