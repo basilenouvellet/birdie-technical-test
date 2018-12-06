@@ -6,6 +6,7 @@
     "@babel/core": "7.1.0",
     "@babel/plugin-syntax-jsx": "^7.2.0",
     "@svgr/webpack": "2.4.1",
+    "@types/react": "^16.7.13",
     "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "^10.0.1",
     "babel-jest": "23.6.0",
@@ -20,6 +21,7 @@
     "dotenv": "6.0.0",
     "dotenv-expand": "4.2.0",
     "eslint": "^5.9.0",
+    "eslint-config-airbnb": "^17.1.0",
     "eslint-config-react-app": "^3.0.5",
     "eslint-loader": "^2.1.1",
     "eslint-plugin-flowtype": "2.50.1",
@@ -28,6 +30,7 @@
     "eslint-plugin-react": "^7.11.1",
     "express": "^4.16.4",
     "file-loader": "2.0.0",
+    "flow-bin": "^0.87.0",
     "fork-ts-checker-webpack-plugin-alt": "0.4.14",
     "fs-extra": "7.0.0",
     "html-webpack-plugin": "4.0.0-alpha.2",
@@ -124,10 +127,5 @@
     "presets": [
       "react-app"
     ]
-  },
-  "devDependencies": {
-    "@types/react": "^16.7.13",
-    "eslint-config-airbnb": "^17.1.0",
-    "flow-bin": "^0.87.0"
   }
 }
