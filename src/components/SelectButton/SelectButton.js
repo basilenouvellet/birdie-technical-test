@@ -49,6 +49,7 @@ class SelectButton extends React.Component<PropsType> {
     return columns
       .filter(column => column !== 'age')
       .concat('THIS WILL FAIL') // add non existing column name to test error handling
+      .sort()
       .map(column => ({
         value: column,
         label: column.toLocaleString(),
