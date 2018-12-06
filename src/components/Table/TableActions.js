@@ -10,18 +10,20 @@ import type {
 export type TableActionsTypesType = {|
   SET_VARIABLE: 'table/SET_VARIABLE',
   FETCH_COLUMNS: 'table/FETCH_COLUMNS',
-  FETCH_DATA: 'table/FETCH_DATA',
+  FETCH_COLUMNS_FAILED: 'table/FETCH_COLUMNS_FAILED',
   SET_COLUMNS: 'table/SET_COLUMNS',
+  FETCH_DATA: 'table/FETCH_DATA',
+  FETCH_DATA_FAILED: 'table/FETCH_DATA_FAILED',
   SET_DATA: 'table/SET_DATA',
-  RESET_DATA: 'table/RESET_DATA',
 |};
 export const types: TableActionsTypesType = {
   SET_VARIABLE: 'table/SET_VARIABLE',
   FETCH_COLUMNS: 'table/FETCH_COLUMNS',
-  FETCH_DATA: 'table/FETCH_DATA',
+  FETCH_COLUMNS_FAILED: 'table/FETCH_COLUMNS_FAILED',
   SET_COLUMNS: 'table/SET_COLUMNS',
+  FETCH_DATA: 'table/FETCH_DATA',
+  FETCH_DATA_FAILED: 'table/FETCH_DATA_FAILED',
   SET_DATA: 'table/SET_DATA',
-  RESET_DATA: 'table/RESET_DATA',
 };
 
 // set variable action
@@ -49,6 +51,19 @@ export type FetchColumnsActionType = {|
 export function fetchColumnsAction(): FetchColumnsActionType {
   return {
     type: types.FETCH_COLUMNS,
+  };
+}
+
+// fetch columns failed action
+export type FetchColumnsFailedActionType = {|
+  type: typeof types.FETCH_COLUMNS_FAILED,
+  error: Object, // TODO
+|};
+
+export function fetchColumnsFailedAction(error: Object /* TODO */): FetchColumnsFailedActionType {
+  return {
+    type: types.FETCH_COLUMNS_FAILED,
+    error,
   };
 }
 
@@ -86,6 +101,24 @@ export function fetchDataAction(variable: TableStateVariableType): FetchDataActi
   };
 }
 
+// fetch data failed action
+export type FetchDataFailedActionType = {|
+  type: typeof types.FETCH_DATA_FAILED,
+  error: Object, // TODO
+  variable: TableStateVariableType,
+|};
+
+export function fetchDataFailedAction(
+  error: Object /* TODO */,
+  variable: TableStateVariableType,
+): FetchDataFailedActionType {
+  return {
+    type: types.FETCH_DATA_FAILED,
+    error,
+    variable,
+  };
+}
+
 // set data action
 export type SetDataActionType = {|
   type: typeof types.SET_DATA,
@@ -103,22 +136,10 @@ export function setDataAction(data: TableStateDataType): SetDataActionType {
   };
 }
 
-// reset data action
-export type ResetDataActionType = {|
-  type: typeof types.RESET_DATA,
-|};
-
-export function resetDataAction(): ResetDataActionType {
-  return {
-    type: types.RESET_DATA,
-  };
-}
-
 // Table Action Type
 export type TableActionType =
   SetVariableActionType
   | FetchColumnsActionType
   | SetColumnsActionType
   | FetchDataActionType
-  | SetDataActionType
-  | ResetDataActionType;
+  | SetDataActionType;

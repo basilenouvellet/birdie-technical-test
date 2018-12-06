@@ -4,21 +4,28 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import Select from 'react-select';
 
+import ErrorMessage from '../ErrorMessage';
+
 import { TableActions } from '../Table';
 
 import './SelectButton.css';
 
-import type { TableStateColumnsType, TableStateType, TableStateVariableType } from '../Table';
+import type {
+  TableStateColumnsType,
+  TableStateType,
+  TableStateVariableType,
+  TableStateErrorType,
+} from '../Table';
 
 type MappedStatePropsType = {|
   columns: TableStateColumnsType,
   variable: TableStateVariableType,
+  error: TableStateErrorType,
 |};
 type MappedDispatchPropsType = {|
   fetchColumns: () => void,
   fetchData: (variable: TableStateVariableType) => void,
   setVariable: (variable: TableStateVariableType) => void,
-  resetData: () => void,
 |};
 type OwnPropsType = {||};
 type PropsType = MappedStatePropsType & MappedDispatchPropsType & OwnPropsType;
@@ -49,20 +56,22 @@ class SelectButton extends React.Component<PropsType> {
 
   handleChange = (newOption) => {
     const {
-      variable, setVariable, resetData, fetchData,
+      variable, setVariable, fetchData,
     } = this.props;
 
     const { value: newValue } = newOption;
 
     if (variable !== newValue) {
       setVariable(newValue);
-      resetData(); // reset data in store since it no longer matches the variable
       fetchData(newValue); // start fetching the data corresponding to the new variable
     }
   };
 
   // ------------------------------------------- Render -------------------------------------------
   render(): React.Element<*> {
+    const { error } = this.props;
+    if (error.columns) return <ErrorMessage />;
+
     const options = this.getOptions();
 
     return (
@@ -80,6 +89,7 @@ class SelectButton extends React.Component<PropsType> {
 const mapStateToProps = (state: TableStateType): MappedStatePropsType => ({
   columns: state.columns,
   variable: state.variable,
+  error: state.error,
 });
 
 const mapDispatchToProps = (dispatch: *): MappedDispatchPropsType => ({
@@ -91,9 +101,6 @@ const mapDispatchToProps = (dispatch: *): MappedDispatchPropsType => ({
   },
   setVariable: (variable: TableStateVariableType): void => {
     dispatch(TableActions.setVariableAction(variable));
-  },
-  resetData: (): void => {
-    dispatch(TableActions.resetDataAction());
   },
 });
 

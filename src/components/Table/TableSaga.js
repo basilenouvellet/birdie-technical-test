@@ -11,10 +11,8 @@ import type { FetchDataActionType } from './index';
 function fetchApi(url) {
   return fetch(url)
     .then(res => res.json())
-    .catch((err) => {
-      console.error(err);
-      return [];
-    });
+    .then(json => ({ response: json }))
+    .catch(error => ({ error }));
 }
 
 function* fetchDataSaga(action: FetchDataActionType): * {
@@ -22,17 +20,25 @@ function* fetchDataSaga(action: FetchDataActionType): * {
 
   if (variable) {
     const url = `/data?variable=${variable}`;
-    const data = yield call(fetchApi, url);
+    const { response, error } = yield call(fetchApi, url);
 
-    yield put(TableActions.setDataAction(data));
+    if (response) { // success
+      yield put(TableActions.setDataAction(response));
+    } else { // error
+      yield put(TableActions.fetchDataFailedAction(error, variable));
+    }
   }
 }
 
 function* fetchColumnsSaga(): * {
-  const rawColumns = yield call(fetchApi, '/columns');
-  const columns = rawColumns.map(rawColumn => rawColumn.Field);
+  const { response, error } = yield call(fetchApi, '/columns');
 
-  yield put(TableActions.setColumnsAction(columns));
+  if (response && response.length) { // success
+    const columns = response.map(rawColumn => rawColumn.Field);
+    yield put(TableActions.setColumnsAction(columns));
+  } else { // error
+    yield put(TableActions.fetchColumnsFailedAction(error));
+  }
 }
 
 function* TableSaga(): * {

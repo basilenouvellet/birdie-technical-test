@@ -1,16 +1,25 @@
-import React from 'react';
+// @flow
+
+import * as React from 'react';
 
 import Table from './components/Table';
 import SelectButton from './components/SelectButton';
+import ErrorBoundary from './components/ErrorBoundary';
 
 import './App.css';
 
-function App() {
+function App(): React.Element<'div'> {
   return (
     <div className="App">
       <header className="App-header">Birdie Technical Test - Basile NOUVELLET</header>
-      <SelectButton />
-      <Table />
+
+      <ErrorBoundary>
+        <SelectButton />
+      </ErrorBoundary>
+
+      <ErrorBoundary>
+        <Table />
+      </ErrorBoundary>
     </div>
   );
 }

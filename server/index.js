@@ -8,20 +8,22 @@ const app = express();
 const port = process.env.port || 8080;
 
 // database
-const db = mysql.createConnection({
+const dbOptions = {
   host: 'birdie-test.cyosireearno.eu-west-2.rds.amazonaws.com',
   port: 3306,
   user: 'test-read',
   password: 'xnxPp6QfZbCYkY8',
   database: 'birdietest',
-});
+};
+
+const db = mysql.createConnection(dbOptions);
 
 const table = 'census_learn_sql';
 
 // connect to database
 db.connect((err) => {
   if (err) throw err;
-  console.log('Connected to database');
+  console.log(`Connected to database '${dbOptions.database}'`);
 });
 
 // routes
@@ -34,26 +36,23 @@ app.get('/data', (req, res, next) => {
       `FROM ${table}`,
       `GROUP BY \`${variable}\``,
       'ORDER BY average_age DESC',
-      // 'LIMIT 100',
     ].join(' ');
 
-    console.log(sqlQuery);
+    console.log(`New SQL query: SELECT \`${variable}\` [...]`);
 
     db.query(sqlQuery, (error, results) => {
-      if (error) {
-        console.error(error);
-        next();
-      }
+      if (error) throw error;
       res.send(results);
     });
   } else {
-    console.log('Empty variable in SQL request', variable);
-    next();
+    throw new Error(`Empty variable in SQL request: ${variable}`);
   }
 });
 
-app.use('/columns', (req, res) => {
-  const sqlQuery = `SHOW columns from ${table}`;
+app.get('/columns', (req, res) => {
+  const sqlQuery = `SHOW columns from \`${table}\``;
+
+  console.log(`New SQL query: ${sqlQuery}`);
 
   db.query(sqlQuery, (error, results) => {
     if (error) throw error;
@@ -61,6 +60,7 @@ app.use('/columns', (req, res) => {
   });
 });
 
+// launch server
 app.listen(port, () => {
-  console.log(`Server running on port ${port}!`);
+  console.log(`Server running on port ${port}`);
 });
