@@ -8,31 +8,33 @@ type OwnPropsType = {||};
 type PropsType = OwnPropsType;
 
 type StateType = {|
-    hasError: boolean,
+  hasError: boolean,
 |};
 
 class ErrorBoundary extends React.Component<PropsType, StateType> {
-    state = {
-      hasError: false,
-    };
+  state = {
+    hasError: false,
+  };
 
-    componentDidCatch() {
-      this.setState({ hasError: true });
-    }
+  componentDidCatch() {
+    this.setState({ hasError: true });
+  }
 
-    // ------------------------------------------- Render ------------------------------------------
-    render() {
-      const { children } = this.props;
-      const { hasError } = this.state;
+  // ------------------------------------------- Render ------------------------------------------
+  render() {
+    const { hasError } = this.state;
 
-      if (!hasError) return children;
-
+    if (hasError) {
       return (
         <div className="error-boundary">
-            Oops, something went wrong
+          Oops, something went wrong
         </div>
       );
     }
+
+    // eslint-disable-next-line react/destructuring-assignment
+    return this.props.children;
+  }
 }
 
 export default ErrorBoundary;

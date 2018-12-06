@@ -4,16 +4,21 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import Select from 'react-select';
 
-import ErrorBoundary from '../ErrorBoundary';
 import { TableActions } from '../Table';
 
 import './SelectButton.css';
 
-import type { TableStateColumnsType, TableStateType, TableStateVariableType } from '../Table';
+import type {
+  TableStateColumnsType,
+  TableStateType,
+  TableStateVariableType,
+  TableStateErrorType,
+} from '../Table';
 
 type MappedStatePropsType = {|
   columns: TableStateColumnsType,
   variable: TableStateVariableType,
+  error: TableStateErrorType,
 |};
 type MappedDispatchPropsType = {|
   fetchColumns: () => void,
@@ -64,18 +69,19 @@ class SelectButton extends React.Component<PropsType> {
 
   // ------------------------------------------- Render -------------------------------------------
   render(): React.Element<*> {
+    const { error } = this.props;
+    if (error.columns) throw new Error('Columns error');
+
     const options = this.getOptions();
 
     return (
-      <ErrorBoundary>
-        <Select
-          className="select-button"
-          styles={selectStyles}
-          placeholder="Select a variable..."
-          onChange={this.handleChange}
-          options={options}
-        />
-      </ErrorBoundary>
+      <Select
+        className="select-button"
+        styles={selectStyles}
+        placeholder="Select a variable..."
+        onChange={this.handleChange}
+        options={options}
+      />
     );
   }
 }
@@ -83,6 +89,7 @@ class SelectButton extends React.Component<PropsType> {
 const mapStateToProps = (state: TableStateType): MappedStatePropsType => ({
   columns: state.columns,
   variable: state.variable,
+  error: state.error,
 });
 
 const mapDispatchToProps = (dispatch: *): MappedDispatchPropsType => ({

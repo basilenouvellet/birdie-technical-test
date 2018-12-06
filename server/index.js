@@ -51,6 +51,8 @@ app.get('/data', (req, res, next) => {
 app.get('/columns', (req, res) => {
   const sqlQuery = `SHOW columns from ${table}`;
 
+  console.log(sqlQuery);
+
   db.query(sqlQuery, (error, results) => {
     if (error) throw error;
     res.send(results);
@@ -58,7 +60,7 @@ app.get('/columns', (req, res) => {
 });
 
 // error handler
-app.use((err, req, res, next) => {
+app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
   console.error(err.stack);
   res.status(500).send('Something broke!');
 });

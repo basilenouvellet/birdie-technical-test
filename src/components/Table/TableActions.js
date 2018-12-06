@@ -10,16 +10,20 @@ import type {
 export type TableActionsTypesType = {|
   SET_VARIABLE: 'table/SET_VARIABLE',
   FETCH_COLUMNS: 'table/FETCH_COLUMNS',
-  FETCH_DATA: 'table/FETCH_DATA',
+  FETCH_COLUMNS_FAILED: 'table/FETCH_COLUMNS_FAILED',
   SET_COLUMNS: 'table/SET_COLUMNS',
+  FETCH_DATA: 'table/FETCH_DATA',
+  FETCH_DATA_FAILED: 'table/FETCH_DATA_FAILED',
   SET_DATA: 'table/SET_DATA',
   RESET_DATA: 'table/RESET_DATA',
 |};
 export const types: TableActionsTypesType = {
   SET_VARIABLE: 'table/SET_VARIABLE',
   FETCH_COLUMNS: 'table/FETCH_COLUMNS',
-  FETCH_DATA: 'table/FETCH_DATA',
+  FETCH_COLUMNS_FAILED: 'table/FETCH_COLUMNS_FAILED',
   SET_COLUMNS: 'table/SET_COLUMNS',
+  FETCH_DATA: 'table/FETCH_DATA',
+  FETCH_DATA_FAILED: 'table/FETCH_DATA_FAILED',
   SET_DATA: 'table/SET_DATA',
   RESET_DATA: 'table/RESET_DATA',
 };
@@ -49,6 +53,19 @@ export type FetchColumnsActionType = {|
 export function fetchColumnsAction(): FetchColumnsActionType {
   return {
     type: types.FETCH_COLUMNS,
+  };
+}
+
+// fetch columns failed action
+export type FetchColumnsFailedActionType = {|
+  type: typeof types.FETCH_COLUMNS_FAILED,
+  error: Object, // TODO
+|};
+
+export function fetchColumnsFailedAction(error: Object /* TODO */): FetchColumnsFailedActionType {
+  return {
+    type: types.FETCH_COLUMNS_FAILED,
+    error,
   };
 }
 
@@ -83,6 +100,24 @@ export function fetchDataAction(variable: TableStateVariableType): FetchDataActi
     payload: {
       variable,
     },
+  };
+}
+
+// fetch data failed action
+export type FetchDataFailedActionType = {|
+  type: typeof types.FETCH_DATA_FAILED,
+  error: Object, // TODO
+  variable: TableStateVariableType,
+|};
+
+export function fetchDataFailedAction(
+  error: Object /* TODO */,
+  variable: TableStateVariableType,
+): FetchDataFailedActionType {
+  return {
+    type: types.FETCH_DATA_FAILED,
+    error,
+    variable,
   };
 }
 

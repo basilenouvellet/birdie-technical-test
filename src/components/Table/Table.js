@@ -3,17 +3,22 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 
-import ErrorBoundary from '../ErrorBoundary';
 import Row from './subComponents/Row';
 import Spinner from './subComponents/Spinner';
 
 import './Table.css';
 
-import type { TableStateType, TableStateVariableType, TableStateDataType } from './index';
+import type {
+  TableStateType,
+  TableStateVariableType,
+  TableStateDataType,
+  TableStateErrorType,
+} from './index';
 
 type MappedStatePropsType = {|
   variable: TableStateVariableType,
   data: TableStateDataType,
+  error: TableStateErrorType,
 |};
 type OwnPropsType = {||};
 type PropsType = MappedStatePropsType & OwnPropsType;
@@ -29,7 +34,6 @@ class Table extends React.Component<PropsType, StateType> {
 
   componentDidUpdate(prevProps: PropsType) {
     const { variable } = this.props;
-
     if (prevProps.variable !== variable) this.variableHasChanged();
   }
 
@@ -142,19 +146,20 @@ class Table extends React.Component<PropsType, StateType> {
 
   // ------------------------------------------- Render ------------------------------------------
   render(): React.Element<'div'> {
+    const { error } = this.props;
+    if (error.data) throw new Error('Data error');
+
     return (
-      <ErrorBoundary>
-        <div className="table">
-          {this.renderColumnsNames()}
+      <div className="table">
+        {this.renderColumnsNames()}
 
-          <div className="rows-container">
-            {this.renderRows()}
-            {this.renderFooter()}
-          </div>
-
-          {this.renderSpinner()}
+        <div className="rows-container">
+          {this.renderRows()}
+          {this.renderFooter()}
         </div>
-      </ErrorBoundary>
+
+        {this.renderSpinner()}
+      </div>
     );
   }
 }
@@ -162,6 +167,7 @@ class Table extends React.Component<PropsType, StateType> {
 const mapStateToProps = (state: TableStateType): MappedStatePropsType => ({
   variable: state.variable,
   data: state.data,
+  error: state.error,
 });
 
 export default connect(
