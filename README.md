@@ -1,8 +1,9 @@
 # Birdie - Technical Test
-This is my project as a technical test for an internship at [Birdie](https://birdie.care):
-a very simple data dashboard, fetching a mySQL database.
+A very simple data dashboard, fetching a mySQL database.
 
-It is available on Heroku: https://birdie-technical-test.herokuapp.com/
+This is my project as a technical test for an internship at [Birdie](https://birdie.care).
+
+It is available on Heroku: https://make-ageing-great-again.herokuapp.com/
 
 >Please be patient during first launch of the app, as I'm using the free plan of Heroku it can take a few seconds...
 
