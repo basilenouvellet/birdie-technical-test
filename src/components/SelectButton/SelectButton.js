@@ -38,6 +38,18 @@ const selectStyles = {
   }),
 };
 
+// overwrite some colors of the default theme of React Select
+const selectTheme = theme => ({
+  ...theme,
+  colors: {
+    ...theme.colors,
+    primary: '#6c61c9',
+    primary25: 'rgba(108, 97, 201, .25)',
+    primary50: 'rgba(108, 97, 201, .50)',
+    primary75: 'rgba(108, 97, 201, .75)',
+  },
+});
+
 // export unconnected component for test purposes with Jest
 export class SelectButtonUnconnected extends React.Component<PropsType> {
   componentDidMount() {
@@ -82,6 +94,7 @@ export class SelectButtonUnconnected extends React.Component<PropsType> {
       <Select
         className="select-button"
         styles={selectStyles}
+        theme={selectTheme}
         placeholder="Select a variable..."
         onChange={this.handleChange}
         options={options}

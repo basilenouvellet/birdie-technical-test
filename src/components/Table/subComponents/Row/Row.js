@@ -26,7 +26,7 @@ function Row(props: PropsType): React.Element<'div'> {
   const style = isTitle ? null : {
     // change background color based on index
     // parseInt to satisfy flow
-    backgroundColor: parseInt(index, 10) % 2 ? 'rgba(38, 132, 255, .2)' : null,
+    backgroundColor: parseInt(index, 10) % 2 ? 'rgba(108, 97, 201, .1)' : null,
   };
 
   return (
