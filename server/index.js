@@ -33,11 +33,7 @@ db.connect((err) => {
 
 // routes
 app.get('/data', (req, res, next) => {
-  const { variable: vari } = req.query;
-
-  // TODO: to remove
-  let variable = vari;
-  if (vari === 'education') variable = 'educcccccc';
+  const { variable } = req.query;
 
   if (variable) {
     // set query
@@ -84,8 +80,7 @@ app.get('*', (req, res) => {
 });
 
 app.use((err, req, res, next) => {
-  console.log('Problemo poto');
-  console.log(err);
+  console.error(err);
   res.status(err.statusCode).send(err.error);
 });
 
