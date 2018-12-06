@@ -79,6 +79,7 @@ ShallowWrapper {
       "styles": Object {
         "option": [Function],
       },
+      "theme": [Function],
     },
     "ref": null,
     "rendered": null,
@@ -117,6 +118,7 @@ ShallowWrapper {
         "styles": Object {
           "option": [Function],
         },
+        "theme": [Function],
       },
       "ref": null,
       "rendered": null,

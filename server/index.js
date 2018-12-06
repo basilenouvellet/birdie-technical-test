@@ -79,7 +79,7 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '..', 'build/index.html'));
 });
 
-app.use((err, req, res, next) => {
+app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
   console.error(err);
   res.status(err.statusCode).send(err.error);
 });

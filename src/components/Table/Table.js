@@ -106,6 +106,7 @@ export class TableUnconnected extends React.Component<PropsType, StateType> {
         // pass row data to Row component
         <Row
           // try making 'key' unique without using 'index'
+          // 'row[variable]' should be unique, but just to be sure we add 'count' and 'averageAge'
           key={`${row[variable]}${row.count}${row.averageAge}`}
           index={index}
           variable={row[variable]}
@@ -143,7 +144,7 @@ export class TableUnconnected extends React.Component<PropsType, StateType> {
   }
 
   // ------------------------------------------- Render ------------------------------------------
-  render(): React.Element<'div'> {
+  render(): React.Element<'div' | typeof ErrorMessage> {
     const { error, loading } = this.props;
     if (error.data) return <ErrorMessage />; // handle error
 

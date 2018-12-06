@@ -57,10 +57,12 @@ export function fetchColumnsAction(): FetchColumnsActionType {
 // fetch columns failed action
 export type FetchColumnsFailedActionType = {|
   type: typeof types.FETCH_COLUMNS_FAILED,
-  error: Object, // TODO
+  error: *, // TODO: type
 |};
 
-export function fetchColumnsFailedAction(error: Object /* TODO */): FetchColumnsFailedActionType {
+export function fetchColumnsFailedAction(
+  error: *, // TODO: type
+): FetchColumnsFailedActionType {
   return {
     type: types.FETCH_COLUMNS_FAILED,
     error,
@@ -104,12 +106,12 @@ export function fetchDataAction(variable: TableStateVariableType): FetchDataActi
 // fetch data failed action
 export type FetchDataFailedActionType = {|
   type: typeof types.FETCH_DATA_FAILED,
-  error: Object, // TODO
+  error: *, // TODO: type
   variable: TableStateVariableType,
 |};
 
 export function fetchDataFailedAction(
-  error: Object /* TODO */,
+  error: *, // TODO: type
   variable: TableStateVariableType,
 ): FetchDataFailedActionType {
   return {
@@ -140,6 +142,8 @@ export function setDataAction(data: TableStateDataType): SetDataActionType {
 export type TableActionType =
   SetVariableActionType
   | FetchColumnsActionType
+  | FetchColumnsFailedActionType
   | SetColumnsActionType
   | FetchDataActionType
+  | FetchDataFailedActionType
   | SetDataActionType;

@@ -4,8 +4,9 @@ import * as React from 'react';
 
 import './ErrorBoundary.css';
 
-type OwnPropsType = {||};
-type PropsType = OwnPropsType;
+type PropsType = {|
+  children: any,
+|};
 
 type StateType = {|
   hasError: boolean,

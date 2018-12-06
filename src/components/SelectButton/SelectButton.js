@@ -38,6 +38,18 @@ const selectStyles = {
   }),
 };
 
+// overwrite some colors of the default theme of React Select
+const selectTheme = theme => ({
+  ...theme,
+  colors: {
+    ...theme.colors,
+    primary: '#6c61c9',
+    primary25: 'rgba(108, 97, 201, .25)',
+    primary50: 'rgba(108, 97, 201, .50)',
+    primary75: 'rgba(108, 97, 201, .75)',
+  },
+});
+
 // export unconnected component for test purposes with Jest
 export class SelectButtonUnconnected extends React.Component<PropsType> {
   componentDidMount() {
@@ -49,16 +61,15 @@ export class SelectButtonUnconnected extends React.Component<PropsType> {
     const { columns } = this.props;
 
     return columns
-      // .filter(column => column !== 'age')
       .concat('THIS WILL FAIL') // add non existing column name to test error handling
       .sort() // sort alphabetically
-      .map(column => ({ // map to React Select options structure
+      .map<*>(column => ({ // map to React Select options structure
         value: column,
         label: column.toLocaleString(), // how it is going to be displayed to the user
       }));
   }
 
-  handleChange = (newOption) => {
+  handleChange = (newOption: *) => {
     const {
       variable, setVariable, fetchData,
     } = this.props;
@@ -72,7 +83,7 @@ export class SelectButtonUnconnected extends React.Component<PropsType> {
   };
 
   // ------------------------------------------- Render -------------------------------------------
-  render(): React.Element<*> {
+  render(): React.Element<typeof Select | typeof ErrorMessage> {
     const { error } = this.props;
     if (error.columns) return <ErrorMessage />;
 
@@ -82,6 +93,7 @@ export class SelectButtonUnconnected extends React.Component<PropsType> {
       <Select
         className="select-button"
         styles={selectStyles}
+        theme={selectTheme}
         placeholder="Select a variable..."
         onChange={this.handleChange}
         options={options}
