@@ -1,6 +1,6 @@
 {
   "name": "birdie-technical-test",
-  "version": "1.0.0-rc.1",
+  "version": "1.0.0-rc.2",
   "private": false,
   "dependencies": {
     "@babel/core": "7.1.0",
